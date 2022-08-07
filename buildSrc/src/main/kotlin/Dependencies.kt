@@ -107,5 +107,8 @@ object Debug {
 }
 
 object Modules {
-
+    const val data = ":core-data"
+    const val model = ":core-model"
+    const val ui = ":core-ui"
+    const val utils = ":core-utils"
 }
