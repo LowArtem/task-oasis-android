@@ -118,4 +118,5 @@ object Modules {
     const val model = ":core-model"
     const val ui = ":core-ui"
     const val utils = ":core-utils"
+    const val auth = ":feature-auth"
 }

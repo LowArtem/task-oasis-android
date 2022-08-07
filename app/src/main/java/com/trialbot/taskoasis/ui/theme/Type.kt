@@ -6,6 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.trialbot.taskoasis.R
 
@@ -32,5 +33,15 @@ val Typography = Typography(
         fontFamily = poppins,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
+    ),
+    body2 = TextStyle(
+        fontFamily = poppins,
+        fontWeight = FontWeight.Normal,
+        fontSize = 18.sp
+    ),
+    subtitle1 = TextStyle(
+        fontFamily = poppins,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp
     )
 )

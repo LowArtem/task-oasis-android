@@ -1,54 +1,41 @@
 package com.trialbot.taskoasis.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-
-val Colors.infoColor: Color
-    get() = Blue
-
-val Colors.attentionColor: Color
-    get() = Yellow
-
-val Colors.goodColor: Color
-    get() = Green
-
-val Colors.disabledColor: Color
-    get() = MiddleGray
-
-val Colors.inputStrokeColor: Color
-    get() = Gray
+import com.trialbot.core_ui.colors.MyColors
 
 private val DarkColorPalette = darkColors(
-    primary = LightBrown,
-    primaryVariant = MiddleBrown,
-    secondary = AlmostWhite,
-    background = DarkGray,
-    surface = AlmostBlack,
-    error = Red,
-    onPrimary = Black,
-    onSurface = White,
-    onBackground = AlmostWhite
+    primary = MyColors.LightBrown,
+    primaryVariant = MyColors.MiddleBrown,
+    secondary = MyColors.AlmostWhite,
+    background = MyColors.DarkGray,
+    surface = MyColors.AlmostBlack,
+    error = MyColors.Red,
+    onPrimary = MyColors.Black,
+    onSurface = MyColors.White,
+    onBackground = MyColors.AlmostWhite
 )
 
 private val LightColorPalette = lightColors(
-    primary = LightBrown,
-    primaryVariant = MiddleBrown,
-    secondary = DarkBrown,
-    background = AlmostWhite,
-    surface = White,
-    error = Red,
-    onPrimary = Black,
-    onSurface = Black,
-    onBackground = DarkBrown
+    primary = MyColors.LightBrown,
+    primaryVariant = MyColors.MiddleBrown,
+    secondary = MyColors.DarkBrown,
+    background = MyColors.AlmostWhite,
+    surface = MyColors.White,
+    error = MyColors.Red,
+    onPrimary = MyColors.Black,
+    onSurface = MyColors.Black,
+    onBackground = MyColors.DarkBrown
 )
 
 @Composable
-fun TaskOasisTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+fun TaskOasisTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {

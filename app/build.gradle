@@ -61,4 +61,7 @@ dependencies {
 
     debugImplementation(Debug.composeUiTooling)
     debugImplementation(Debug.composeUiTestManifest)
+
+    implementation(project(Modules.ui))
+    implementation(project(Modules.auth))
 }
