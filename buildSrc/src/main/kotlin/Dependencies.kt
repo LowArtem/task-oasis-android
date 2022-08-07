@@ -91,16 +91,19 @@ object Glide {
     const val compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
 }
 
-object Test {
+object TestDependencies {
     const val jUnit = "junit:junit:${Versions.jUnit}"
-    const val JUnitExt = "androidx.test.ext:junit:${Versions.jUnitExt}"
+    const val jUnitExt = "androidx.test.ext:junit:${Versions.jUnitExt}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
     const val composeUi = "androidx.compose.ui:ui-test-junit4:${Versions.composeCore}"
-    const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.composeCore}"
-    const val composeUiTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.composeCore}"
     const val mockkUnit = "io.mockk:mockk:${Versions.mockk}"
     const val mockkAndroidInstrumented = "io.mockk:mockk-android:${Versions.mockk}"
     const val assertJCore = "org.assertj:assertj-core:${Versions.assertJ}"
+}
+
+object Debug {
+    const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.composeCore}"
+    const val composeUiTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.composeCore}"
 }
 
 object Modules {
