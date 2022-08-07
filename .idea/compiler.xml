@@ -8,6 +8,7 @@
       <module name="TaskOasis.buildSrc.test" target="11" />
       <module name="TaskOasis.core-data" target="11" />
       <module name="TaskOasis.core-ui" target="11" />
+      <module name="TaskOasis.feature-auth" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

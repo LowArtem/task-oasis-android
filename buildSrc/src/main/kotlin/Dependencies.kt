@@ -22,6 +22,9 @@ object Versions {
     const val composeNavigation = "2.4.2"
     const val composeDestination = "1.6.15-beta"
 
+    // Security
+    const val securityCrypto = "1.1.0-alpha03"
+
     // Retrofit & OkHttp
     const val retrofitCore = "2.9.0"
     const val okHttp = "4.10.0"
@@ -57,6 +60,10 @@ object AndroidCore {
 object Design {
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     const val material = "com.google.android.material:material:${Versions.material}"
+}
+
+object Security {
+    const val cryptoKtx = "androidx.security:security-crypto-ktx:${Versions.securityCrypto}"
 }
 
 object Kotlin {
