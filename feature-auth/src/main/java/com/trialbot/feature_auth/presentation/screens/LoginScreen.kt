@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.trialbot.core_designsystem.R
+import com.trialbot.core_designsystem.ui.TaskOasisIcons
 import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
 import com.trialbot.core_uicomponents.components.InputHintField
 import com.trialbot.feature_auth.presentation.ui.components.SubmitButton
@@ -70,12 +70,12 @@ fun LoginScreen() {
                         }) {
                             if (passwordVisibility)
                                 Icon(
-                                    painterResource(id = R.drawable.ic_visible),
+                                    painterResource(id = TaskOasisIcons.visibilityOn),
                                     contentDescription = "Password visible"
                                 )
                             else
                                 Icon(
-                                    painterResource(id = R.drawable.ic_invisible),
+                                    painterResource(id = TaskOasisIcons.visibilityOff),
                                     contentDescription = "Password invisible"
                                 )
                         }

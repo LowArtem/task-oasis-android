@@ -22,7 +22,7 @@ class AuthRepositoryImpl(
                     Result.Error(WrongRemoteResponseException(response.body().toString()))
                 }
                 else -> {
-                    Result.Error(WrongRemoteResponseException("Unknown error"))
+                    Result.Error(WrongRemoteResponseException("Unknown error: ${response.body().toString()}"))
                 }
             }
         } else {
@@ -43,7 +43,7 @@ class AuthRepositoryImpl(
                     Result.Error(WrongRemoteResponseException(response.body().toString()))
                 }
                 else -> {
-                    Result.Error(WrongRemoteResponseException("Unknown error"))
+                    Result.Error(WrongRemoteResponseException("Unknown error: ${response.body().toString()}"))
                 }
             }
         } else {
