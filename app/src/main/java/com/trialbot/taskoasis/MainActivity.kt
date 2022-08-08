@@ -20,12 +20,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.trialbot.core_uicomponents.components.InputHintField
-import com.trialbot.feature_auth.presentation.ui.components.SubmitButton
+import com.trialbot.core_designsystem.R
 import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
 import com.trialbot.core_designsystem.ui.theme.poppins
+import com.trialbot.core_uicomponents.components.InputHintField
+import com.trialbot.feature_auth.presentation.ui.components.SubmitButton
 import kotlinx.coroutines.launch
-import com.trialbot.core_designsystem.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
