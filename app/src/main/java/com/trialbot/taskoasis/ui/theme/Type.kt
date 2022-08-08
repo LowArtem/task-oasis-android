@@ -43,5 +43,10 @@ val Typography = Typography(
         fontFamily = poppins,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
+    ),
+    subtitle2 = TextStyle(
+        fontFamily = poppins,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp
     )
 )
