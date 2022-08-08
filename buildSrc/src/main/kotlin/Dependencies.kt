@@ -32,6 +32,9 @@ object Versions {
     // Glide
     const val glide = "4.13.2"
 
+    // Accompanist
+    const val accompanistCore = "0.25.0"
+
     // Test
     const val jUnit = "4.13.2"
     const val jUnitExt = "1.1.3"
@@ -96,6 +99,12 @@ object Retrofit {
 object Glide {
     const val core = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
+}
+
+object Accompanist {
+    const val pager = "com.google.accompanist:accompanist-pager:${Versions.accompanistCore}"
+    const val placeholder = "com.google.accompanist:accompanist-placeholder-material:${Versions.accompanistCore}"
+    const val swipeToRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistCore}"
 }
 
 object TestDependencies {
