@@ -46,7 +46,6 @@ android {
 }
 
 dependencies {
-
     implementation(AndroidCore.core)
     implementation(Kotlin.composeCore)
     implementation(Kotlin.composeMaterial)
@@ -62,6 +61,10 @@ dependencies {
     debugImplementation(Debug.composeUiTooling)
     debugImplementation(Debug.composeUiTestManifest)
 
-    implementation(project(Modules.ui))
+    implementation(project(Modules.uicomponents))
+    implementation(project(Modules.designSystem))
+    implementation(project(Modules.utils))
+    implementation(project(Modules.model))
+    implementation(project(Modules.data))
     implementation(project(Modules.auth))
 }

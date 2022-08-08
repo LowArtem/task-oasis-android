@@ -116,7 +116,8 @@ object Debug {
 object Modules {
     const val data = ":core-data"
     const val model = ":core-model"
-    const val ui = ":core-ui"
+    const val uicomponents = ":core-uicomponents"
+    const val designSystem = ":core-designsystem"
     const val utils = ":core-utils"
     const val auth = ":feature-auth"
 }

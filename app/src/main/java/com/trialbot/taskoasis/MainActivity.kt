@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -21,11 +20,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.trialbot.core_ui.components.InputHintField
+import com.trialbot.core_uicomponents.components.InputHintField
 import com.trialbot.feature_auth.presentation.ui.components.SubmitButton
-import com.trialbot.taskoasis.ui.theme.TaskOasisTheme
-import com.trialbot.taskoasis.ui.theme.poppins
+import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
+import com.trialbot.core_designsystem.ui.theme.poppins
 import kotlinx.coroutines.launch
+import com.trialbot.core_designsystem.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

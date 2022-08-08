@@ -1,14 +1,13 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp") version Versions.ksp
 }
 
 android {
     compileSdk = Configs.compileSdk
     defaultConfig.minSdk = Configs.minSdk
     defaultConfig.targetSdk = Configs.targetSdk
-
+    
     buildFeatures {
         compose = true
     }
@@ -27,18 +26,7 @@ dependencies {
     implementation(Kotlin.composeMaterial)
     implementation(Kotlin.uiTooling)
     implementation(AndroidCore.lifecycleCore)
-    implementation(AndroidCore.viewModel)
-
-    implementation(Koin.core)
-    implementation(Koin.android)
-    implementation(Koin.compose)
-
-    implementation(Navigation.navigationCompose)
-    implementation(Navigation.navigationDestination)
-    implementation(Navigation.navigationKsp)
-
-    implementation(Retrofit.core)
-    implementation(Security.cryptoKtx)
+    implementation(AndroidCore.activityCompose)
 
     testImplementation(TestDependencies.jUnit)
     androidTestImplementation(TestDependencies.jUnitExt)
@@ -47,9 +35,4 @@ dependencies {
 
     debugImplementation(Debug.composeUiTooling)
     debugImplementation(Debug.composeUiTestManifest)
-
-    implementation(project(Modules.model))
-    implementation(project(Modules.utils))
-    implementation(project(Modules.designSystem))
-    implementation(project(Modules.uicomponents))
 }
