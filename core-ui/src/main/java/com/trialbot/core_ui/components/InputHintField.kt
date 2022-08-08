@@ -1,19 +1,26 @@
 package com.trialbot.core_ui.components
 
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import com.trialbot.core_ui.colors.inputStrokeColor
 
 @Composable
 fun InputHintField(
+    modifier: Modifier,
     value: String,
-    onValueChanged: (String) -> Unit,
     hint: String,
-    modifier: Modifier
+    onValueChanged: (String) -> Unit,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+    passwordVisibility: Boolean? = null,
+    trailingIcon: @Composable (() -> Unit)? = null
 ) {
     OutlinedTextField(
         modifier = modifier,
@@ -32,6 +39,9 @@ fun InputHintField(
             focusedIndicatorColor = MaterialTheme.colors.secondary
         ),
         textStyle = MaterialTheme.typography.body1,
-        singleLine = true
+        singleLine = true,
+        keyboardOptions = keyboardOptions,
+        visualTransformation = if (passwordVisibility == null || passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+        trailingIcon = trailingIcon
     )
 }
