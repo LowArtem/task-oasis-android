@@ -1,113 +1,128 @@
 package com.trialbot.feature_auth.presentation.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
-import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
 import com.trialbot.core_uicomponents.components.InputHintField
+import com.trialbot.feature_auth.R
+import com.trialbot.feature_auth.presentation.events.LoginEvent
+import com.trialbot.feature_auth.presentation.events.UiEvent
+import com.trialbot.feature_auth.presentation.ui.components.EmptyAuthScreen
 import com.trialbot.feature_auth.presentation.ui.components.SubmitButton
 import com.trialbot.feature_auth.presentation.ui.components.TextWithLink
-import kotlinx.coroutines.launch
+import com.trialbot.feature_auth.presentation.viewmodels.LoginViewModel
+import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
+// TODO: переместить start=true на splashScreen
+@RootNavGraph(start = true)
+@Destination
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    navigator: LoginScreenNavigator,
+    viewModel: LoginViewModel = koinViewModel()
+) {
     val scaffoldState = rememberScaffoldState()
 
-    Scaffold(scaffoldState = scaffoldState) { padding ->
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-            color = MaterialTheme.colors.background
-        ) {
-            Column {
-                var text by remember { mutableStateOf("") }
-                var password by remember { mutableStateOf("") }
-                var passwordVisibility: Boolean by remember { mutableStateOf(false) }
-                val coroutineScope = rememberCoroutineScope()
+    val emailState = viewModel.email.value
+    val passwordState = viewModel.password.value
 
-                Text(
-                    text = "Log In",
-                    style = MaterialTheme.typography.h1,
-                    color = MaterialTheme.colors.secondary,
-                    modifier = Modifier.padding(start = 36.dp, top = 121.dp)
-                )
-
-                InputHintField(
-                    value = text,
-                    hint = "Email",
-                    modifier = Modifier
-                        .padding(top = 134.dp)
-                        .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
-                        .align(Alignment.CenterHorizontally),
-                    onValueChanged = { text = it }
-                )
-
-                InputHintField(
-                    value = password,
-                    hint = "Password",
-                    modifier = Modifier
-                        .padding(top = 40.dp)
-                        .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
-                        .align(Alignment.CenterHorizontally),
-                    onValueChanged = { password = it },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    passwordVisibility = passwordVisibility,
-                    trailingIcon = {
-                        IconButton(onClick = {
-                            passwordVisibility = !passwordVisibility
-                        }) {
-                            if (passwordVisibility)
-                                Icon(
-                                    painterResource(id = TaskOasisIcons.visibilityOn),
-                                    contentDescription = "Password visible"
-                                )
-                            else
-                                Icon(
-                                    painterResource(id = TaskOasisIcons.visibilityOff),
-                                    contentDescription = "Password invisible"
-                                )
-                        }
-                    }
-                )
-
-                SubmitButton(
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(top = 78.dp)
-                        .align(Alignment.CenterHorizontally),
-                    text = "Log In",
-                    innerTextPadding = 90.dp
-                )
-
-                TextWithLink(
-                    modifier = Modifier
-                        .padding(top = 30.dp)
-                        .align(Alignment.CenterHorizontally),
-                    mainText = "Don’t have an account? ",
-                    linkText = "Sign Up"
-                ) {
-                    coroutineScope.launch {
-                        scaffoldState.snackbarHostState.showSnackbar("Link was clicked")
-                    }
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEventsFlow.collectLatest { event ->
+            when (event) {
+                is UiEvent.NavigateToHome -> {
+                    navigator.navigateHome()
+                }
+                is UiEvent.NavigateToSignUp -> {
+                    navigator.navigateToSignUp()
+                }
+                is UiEvent.ShowShackbar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message
+                    )
                 }
             }
         }
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview() {
-    TaskOasisTheme {
-        LoginScreen()
+    EmptyAuthScreen(
+        name = "Log In",
+        scaffoldState = scaffoldState
+    ) {
+        InputHintField(
+            value = emailState.text,
+            hint = stringResource(id = R.string.email_hint),
+            modifier = Modifier
+                .padding(top = 134.dp)
+                .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
+                .align(Alignment.CenterHorizontally),
+            onValueChanged = { viewModel.onEvent(LoginEvent.EnteredEmail(it)) },
+            isError = emailState.validatingError.isErrorOccurred,
+            error = emailState.validatingError.message
+        )
+
+        InputHintField(
+            value = passwordState.text,
+            hint = stringResource(R.string.password_hint),
+            modifier = Modifier
+                .padding(top = 40.dp)
+                .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
+                .align(Alignment.CenterHorizontally),
+            onValueChanged = { viewModel.onEvent(LoginEvent.EnteredPassword(it)) },
+            isError = passwordState.validatingError.isErrorOccurred,
+            error = passwordState.validatingError.message,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            passwordVisibility = passwordState.isPasswordVisible,
+            trailingIcon = {
+                IconButton(onClick = {
+                    viewModel.onEvent(LoginEvent.PasswordVisibilityChanged)
+                }) {
+                    if (passwordState.isPasswordVisible)
+                        Icon(
+                            painterResource(id = TaskOasisIcons.visibilityOn),
+                            contentDescription = "Password visible"
+                        )
+                    else
+                        Icon(
+                            painterResource(id = TaskOasisIcons.visibilityOff),
+                            contentDescription = "Password invisible"
+                        )
+                }
+            }
+        )
+
+        SubmitButton(
+            modifier = Modifier
+                .padding(top = 78.dp)
+                .align(Alignment.CenterHorizontally),
+            text = "Log In",
+            innerTextPadding = 90.dp
+        ) {
+            viewModel.onEvent(LoginEvent.Login)
+        }
+
+        TextWithLink(
+            modifier = Modifier
+                .padding(top = 30.dp)
+                .align(Alignment.CenterHorizontally),
+            mainText = stringResource(R.string.navigate_to_signup_helper),
+            linkText = stringResource(R.string.navigate_to_signup_link)
+        ) {
+            viewModel.onEvent(LoginEvent.NavigateToSignUp)
+        }
     }
 }

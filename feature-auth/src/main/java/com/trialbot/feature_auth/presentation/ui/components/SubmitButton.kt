@@ -11,13 +11,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.trialbot.core_designsystem.ui.theme.MyColors
 
 @Composable
 fun SubmitButton(
-    onClick: () -> Unit,
     modifier: Modifier,
     text: String,
-    innerTextPadding: Dp = 80.dp
+    innerTextPadding: Dp = 80.dp,
+    onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,
@@ -30,7 +31,7 @@ fun SubmitButton(
             style = MaterialTheme.typography.h2,
             fontSize = 20.sp,
             modifier = Modifier.padding(horizontal = innerTextPadding, vertical = 10.dp),
-            color = MaterialTheme.colors.secondary
+            color = MyColors.DarkBrown
         )
     }
 }

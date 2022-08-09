@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="navigate_to_signup_helper">Don’t have an account?&#160;</string>
+    <string name="navigate_to_signup_link">Sign Up</string>
+</resources>

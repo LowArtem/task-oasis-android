@@ -59,7 +59,8 @@ fun InputHintField(
             unfocusedLabelColor = MaterialTheme.colors.inputStrokeColor,
             focusedLabelColor = MaterialTheme.colors.secondary,
             unfocusedIndicatorColor = MaterialTheme.colors.inputStrokeColor,
-            focusedIndicatorColor = MaterialTheme.colors.secondary
+            focusedIndicatorColor = MaterialTheme.colors.secondary,
+            backgroundColor = MaterialTheme.colors.surface
         ),
         error = error,
         isError = isError,

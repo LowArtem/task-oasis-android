@@ -26,7 +26,7 @@ fun TextWithLink(
         Text(
             text = mainText,
             style = MaterialTheme.typography.subtitle2,
-            color = MaterialTheme.colors.onPrimary
+            color = MaterialTheme.colors.onSurface
         )
 
         Text(

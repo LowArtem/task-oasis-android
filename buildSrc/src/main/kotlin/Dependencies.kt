@@ -87,6 +87,7 @@ object Navigation {
     const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
     const val navigationDestination = "io.github.raamcosta.compose-destinations:core:${Versions.composeDestination}"
     const val navigationKsp = "io.github.raamcosta.compose-destinations:ksp:${Versions.composeDestination}"
+    const val navigationAnimated = "io.github.raamcosta.compose-destinations:animations-core:${Versions.composeDestination}"
 }
 
 object Retrofit {
@@ -105,6 +106,7 @@ object Accompanist {
     const val pager = "com.google.accompanist:accompanist-pager:${Versions.accompanistCore}"
     const val placeholder = "com.google.accompanist:accompanist-placeholder-material:${Versions.accompanistCore}"
     const val swipeToRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistCore}"
+    const val systemUiController = "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanistCore}"
 }
 
 object TestDependencies {
