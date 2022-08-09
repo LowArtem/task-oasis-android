@@ -38,6 +38,10 @@ dependencies {
     implementation(Navigation.navigationKsp)
 
     implementation(Retrofit.core)
+    implementation(Retrofit.okHttpCore)
+    implementation(Retrofit.okHttpLogging)
+    implementation(Retrofit.converterGson)
+
     implementation(Security.cryptoKtx)
 
     testImplementation(TestDependencies.jUnit)
@@ -49,6 +53,7 @@ dependencies {
     debugImplementation(Debug.composeUiTestManifest)
 
     implementation(project(Modules.model))
+    implementation(project(Modules.data))
     implementation(project(Modules.utils))
     implementation(project(Modules.designSystem))
     implementation(project(Modules.uicomponents))
