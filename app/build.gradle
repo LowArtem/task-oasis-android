@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.devtools.ksp' version '1.7.0-1.0.6'
 }
 
 android {
@@ -45,6 +46,17 @@ android {
     }
 }
 
+kotlin {
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
+}
+
 dependencies {
     implementation(AndroidCore.core)
     implementation(Kotlin.composeCore)
@@ -53,11 +65,17 @@ dependencies {
     implementation(AndroidCore.lifecycleCore)
     implementation(AndroidCore.activityCompose)
 
+    implementation(Accompanist.systemUiController)
+
     implementation(Koin.core)
     implementation(Koin.android)
     implementation(Koin.compose)
 
     implementation(Security.cryptoKtx)
+
+    implementation(Navigation.navigationCompose)
+    implementation(Navigation.navigationDestination)
+    ksp(Navigation.navigationKsp)
 
     testImplementation(TestDependencies.jUnit)
     androidTestImplementation(TestDependencies.jUnitExt)

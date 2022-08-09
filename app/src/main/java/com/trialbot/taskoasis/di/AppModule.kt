@@ -13,7 +13,9 @@ val appModule = module {
         EncryptedSharedPreferences.create(
             androidContext(),
             ENCRYPTED_SHARED_PREFERENCES_FILENAME,
-            MasterKey.Builder(androidContext()).build(),
+            MasterKey.Builder(androidContext())
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build(),
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         ) as EncryptedSharedPreferences

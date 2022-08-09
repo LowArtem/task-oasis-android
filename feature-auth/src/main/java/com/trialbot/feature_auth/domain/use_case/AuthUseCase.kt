@@ -1,9 +1,9 @@
 package com.trialbot.feature_auth.domain.use_case
 
 import com.trialbot.core_data.repository.CredentialsRepository
+import com.trialbot.core_model.Credentials
 import com.trialbot.core_model.User
 import com.trialbot.core_utils.Result
-import com.trialbot.core_model.Credentials
 import com.trialbot.feature_auth.data.model.LoginRequest
 import com.trialbot.feature_auth.data.model.RegisterRequest
 import com.trialbot.feature_auth.domain.repository.AuthRepository

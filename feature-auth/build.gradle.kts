@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp") version Versions.ksp
+    id("com.google.devtools.ksp") version "1.7.0-1.0.6"
 }
 
 android {
@@ -15,6 +15,22 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.composeCore
     }
+}
+
+kotlin {
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
+}
+
+ksp {
+    arg("compose-destinations.mode", "navgraphs")
+    arg("compose-destinations.moduleName", "feature-auth")
 }
 
 dependencies {
@@ -35,7 +51,7 @@ dependencies {
 
     implementation(Navigation.navigationCompose)
     implementation(Navigation.navigationDestination)
-    implementation(Navigation.navigationKsp)
+    ksp(Navigation.navigationKsp)
 
     implementation(Retrofit.core)
     implementation(Retrofit.okHttpCore)

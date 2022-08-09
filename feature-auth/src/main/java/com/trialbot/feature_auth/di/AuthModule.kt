@@ -44,7 +44,7 @@ val authModule = module {
 
     single<AuthRepository> {
         AuthRepositoryImpl(
-            authDao = get()
+            authDao = get(named(AUTH_RETROFIT_CLIENT))
         )
     }
 
