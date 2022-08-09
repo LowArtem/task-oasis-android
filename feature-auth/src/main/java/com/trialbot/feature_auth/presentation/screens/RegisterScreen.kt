@@ -66,7 +66,7 @@ fun RegisterScreen(
             value = usernameState.text,
             hint = stringResource(R.string.username_hint),
             modifier = Modifier
-                .padding(top = 70.dp)
+                .padding(top = 60.dp)
                 .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
                 .align(Alignment.CenterHorizontally),
             onValueChanged = { viewModel.onEvent(AuthEvent.EnteredUsername(it)) },
@@ -78,7 +78,7 @@ fun RegisterScreen(
             value = emailState.text,
             hint = stringResource(id = R.string.email_hint),
             modifier = Modifier
-                .padding(top = 40.dp)
+                .padding(top = 20.dp)
                 .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
                 .align(Alignment.CenterHorizontally),
             onValueChanged = { viewModel.onEvent(AuthEvent.EnteredEmail(it)) },
@@ -90,7 +90,7 @@ fun RegisterScreen(
             value = passwordState.text,
             hint = stringResource(R.string.password_hint),
             modifier = Modifier
-                .padding(top = 40.dp)
+                .padding(top = 20.dp)
                 .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
                 .align(Alignment.CenterHorizontally),
             onValueChanged = { viewModel.onEvent(AuthEvent.EnteredPassword(it)) },
@@ -123,7 +123,7 @@ fun RegisterScreen(
 
         SubmitButton(
             modifier = Modifier
-                .padding(bottom = 30.dp, top = 80.dp)
+                .padding(bottom = 30.dp, top = 60.dp)
                 .align(Alignment.CenterHorizontally),
             text = "Sign Up",
             innerTextPadding = 90.dp
@@ -133,7 +133,7 @@ fun RegisterScreen(
 
         TextWithLink(
             modifier = Modifier
-                .padding(bottom = 80.dp)
+                .padding(bottom = 50.dp)
                 .align(Alignment.CenterHorizontally),
             mainText = stringResource(R.string.navigate_to_signup_helper),
             linkText = stringResource(R.string.navigate_to_login_link)

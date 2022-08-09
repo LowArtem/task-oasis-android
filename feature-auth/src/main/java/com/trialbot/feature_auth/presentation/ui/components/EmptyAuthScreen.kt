@@ -37,7 +37,7 @@ fun EmptyAuthScreen(
                     text = name,
                     style = MaterialTheme.typography.h1,
                     color = MaterialTheme.colors.secondary,
-                    modifier = Modifier.padding(start = 36.dp, top = 121.dp)
+                    modifier = Modifier.padding(start = 36.dp, top = 110.dp)
                 )
 
                 content()

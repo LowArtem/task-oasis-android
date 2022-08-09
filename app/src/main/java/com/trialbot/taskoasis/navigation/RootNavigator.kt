@@ -2,7 +2,6 @@ package com.trialbot.taskoasis.navigation
 
 import androidx.navigation.NavController
 import com.ramcosta.composedestinations.navigation.navigate
-import com.ramcosta.composedestinations.navigation.popUpTo
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.trialbot.feature_auth.presentation.screens.AuthNavigator
 import com.trialbot.feature_auth.presentation.screens.destinations.LoginScreenDestination

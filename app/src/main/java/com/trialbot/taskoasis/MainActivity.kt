@@ -10,7 +10,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.navigation.dependency
 import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
-import com.trialbot.feature_auth.presentation.screens.FeatureauthNavGraph
+import com.trialbot.feature_auth.presentation.screens.AuthNavGraph
 import com.trialbot.taskoasis.navigation.RootNavGraph
 import com.trialbot.taskoasis.navigation.RootNavigator
 
@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                 DestinationsNavHost(
                     navController = navController,
                     navGraph = RootNavGraph,
-                    startRoute = FeatureauthNavGraph,
+                    startRoute = AuthNavGraph,
                     dependenciesContainerBuilder = {
                         dependency(RootNavigator(destination, navController))
                     }

@@ -30,7 +30,7 @@ kotlin {
 
 ksp {
     arg("compose-destinations.mode", "navgraphs")
-    arg("compose-destinations.moduleName", "feature-auth")
+    arg("compose-destinations.moduleName", "auth")
 }
 
 dependencies {
@@ -50,7 +50,7 @@ dependencies {
     implementation(Koin.compose)
 
     implementation(Navigation.navigationCompose)
-    implementation(Navigation.navigationDestination)
+    implementation(Navigation.navigationAnimated)
     ksp(Navigation.navigationKsp)
 
     implementation(Retrofit.core)

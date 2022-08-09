@@ -79,7 +79,7 @@ fun LoginScreen(
             value = passwordState.text,
             hint = stringResource(R.string.password_hint),
             modifier = Modifier
-                .padding(top = 40.dp)
+                .padding(top = 20.dp)
                 .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
                 .align(Alignment.CenterHorizontally),
             onValueChanged = { viewModel.onEvent(AuthEvent.EnteredPassword(it)) },
@@ -112,7 +112,7 @@ fun LoginScreen(
 
         SubmitButton(
             modifier = Modifier
-                .padding(bottom = 30.dp, top = 80.dp)
+                .padding(bottom = 30.dp, top = 60.dp)
                 .align(Alignment.CenterHorizontally),
             text = "Log In",
             innerTextPadding = 90.dp
