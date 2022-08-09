@@ -1,10 +1,12 @@
-package com.trialbot.feature_auth.presentation.screens
+package com.trialbot.feature_auth.presentation.ui.screens
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -14,9 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
-import com.trialbot.core_designsystem.ui.theme.infoColor
 import com.trialbot.core_uicomponents.components.InputHintField
 import com.trialbot.feature_auth.R
 import com.trialbot.feature_auth.presentation.events.AuthEvent
@@ -24,22 +24,21 @@ import com.trialbot.feature_auth.presentation.events.UiEvent
 import com.trialbot.feature_auth.presentation.ui.components.EmptyAuthScreen
 import com.trialbot.feature_auth.presentation.ui.components.SubmitButton
 import com.trialbot.feature_auth.presentation.ui.components.TextWithLink
-import com.trialbot.feature_auth.presentation.viewmodels.LoginViewModel
+import com.trialbot.feature_auth.presentation.viewmodels.RegisterViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
-// TODO: переместить start=true на splashScreen
-@RootNavGraph(start = true)
 @Destination
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     navigator: AuthNavigator,
-    viewModel: LoginViewModel = koinViewModel()
+    viewModel: RegisterViewModel = koinViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
 
     val emailState = viewModel.email.value
     val passwordState = viewModel.password.value
+    val usernameState = viewModel.username.value
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEventsFlow.collectLatest { event ->
@@ -60,14 +59,26 @@ fun LoginScreen(
     }
 
     EmptyAuthScreen(
-        name = "Log In",
+        name = "Sign Up",
         scaffoldState = scaffoldState
     ) {
+        InputHintField(
+            value = usernameState.text,
+            hint = stringResource(R.string.username_hint),
+            modifier = Modifier
+                .padding(top = 60.dp)
+                .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
+                .align(Alignment.CenterHorizontally),
+            onValueChanged = { viewModel.onEvent(AuthEvent.EnteredUsername(it)) },
+            isError = usernameState.validatingError.isErrorOccurred,
+            error = usernameState.validatingError.message
+        )
+
         InputHintField(
             value = emailState.text,
             hint = stringResource(id = R.string.email_hint),
             modifier = Modifier
-                .padding(top = 134.dp)
+                .padding(top = 20.dp)
                 .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
                 .align(Alignment.CenterHorizontally),
             onValueChanged = { viewModel.onEvent(AuthEvent.EnteredEmail(it)) },
@@ -114,7 +125,7 @@ fun LoginScreen(
             modifier = Modifier
                 .padding(bottom = 30.dp, top = 60.dp)
                 .align(Alignment.CenterHorizontally),
-            text = "Log In",
+            text = "Sign Up",
             innerTextPadding = 90.dp
         ) {
             viewModel.onEvent(AuthEvent.Authenticate)
@@ -122,10 +133,10 @@ fun LoginScreen(
 
         TextWithLink(
             modifier = Modifier
-                .padding(bottom = 80.dp)
+                .padding(bottom = 50.dp)
                 .align(Alignment.CenterHorizontally),
             mainText = stringResource(R.string.navigate_to_signup_helper),
-            linkText = stringResource(R.string.navigate_to_signup_link)
+            linkText = stringResource(R.string.navigate_to_login_link)
         ) {
             viewModel.onEvent(AuthEvent.NavigateNext)
         }

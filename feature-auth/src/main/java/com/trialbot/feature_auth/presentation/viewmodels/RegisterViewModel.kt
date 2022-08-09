@@ -9,8 +9,8 @@ import com.trialbot.feature_auth.data.model.RegisterRequest
 import com.trialbot.feature_auth.domain.use_case.AuthUseCase
 import com.trialbot.feature_auth.presentation.events.AuthEvent
 import com.trialbot.feature_auth.presentation.events.UiEvent
-import com.trialbot.feature_auth.presentation.ui.state.ErrorState
-import com.trialbot.feature_auth.presentation.ui.state.InputFieldState
+import com.trialbot.feature_auth.presentation.states.ErrorState
+import com.trialbot.feature_auth.presentation.states.InputFieldState
 import com.trialbot.feature_auth.util.validateAsEmail
 import com.trialbot.feature_auth.util.validateAsPassword
 import com.trialbot.feature_auth.util.validateAsUsername

@@ -1,4 +1,4 @@
-package com.trialbot.feature_auth.presentation.screens
+package com.trialbot.feature_auth.presentation.ui.screens
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
 import com.trialbot.core_uicomponents.components.InputHintField
 import com.trialbot.feature_auth.R
@@ -24,21 +25,22 @@ import com.trialbot.feature_auth.presentation.events.UiEvent
 import com.trialbot.feature_auth.presentation.ui.components.EmptyAuthScreen
 import com.trialbot.feature_auth.presentation.ui.components.SubmitButton
 import com.trialbot.feature_auth.presentation.ui.components.TextWithLink
-import com.trialbot.feature_auth.presentation.viewmodels.RegisterViewModel
+import com.trialbot.feature_auth.presentation.viewmodels.LoginViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
+// TODO: переместить start=true на splashScreen
+@RootNavGraph(start = true)
 @Destination
 @Composable
-fun RegisterScreen(
+fun LoginScreen(
     navigator: AuthNavigator,
-    viewModel: RegisterViewModel = koinViewModel()
+    viewModel: LoginViewModel = koinViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
 
     val emailState = viewModel.email.value
     val passwordState = viewModel.password.value
-    val usernameState = viewModel.username.value
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEventsFlow.collectLatest { event ->
@@ -59,26 +61,14 @@ fun RegisterScreen(
     }
 
     EmptyAuthScreen(
-        name = "Sign Up",
+        name = "Log In",
         scaffoldState = scaffoldState
     ) {
-        InputHintField(
-            value = usernameState.text,
-            hint = stringResource(R.string.username_hint),
-            modifier = Modifier
-                .padding(top = 60.dp)
-                .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
-                .align(Alignment.CenterHorizontally),
-            onValueChanged = { viewModel.onEvent(AuthEvent.EnteredUsername(it)) },
-            isError = usernameState.validatingError.isErrorOccurred,
-            error = usernameState.validatingError.message
-        )
-
         InputHintField(
             value = emailState.text,
             hint = stringResource(id = R.string.email_hint),
             modifier = Modifier
-                .padding(top = 20.dp)
+                .padding(top = 134.dp)
                 .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
                 .align(Alignment.CenterHorizontally),
             onValueChanged = { viewModel.onEvent(AuthEvent.EnteredEmail(it)) },
@@ -125,7 +115,7 @@ fun RegisterScreen(
             modifier = Modifier
                 .padding(bottom = 30.dp, top = 60.dp)
                 .align(Alignment.CenterHorizontally),
-            text = "Sign Up",
+            text = "Log In",
             innerTextPadding = 90.dp
         ) {
             viewModel.onEvent(AuthEvent.Authenticate)
@@ -133,10 +123,10 @@ fun RegisterScreen(
 
         TextWithLink(
             modifier = Modifier
-                .padding(bottom = 50.dp)
+                .padding(bottom = 80.dp)
                 .align(Alignment.CenterHorizontally),
             mainText = stringResource(R.string.navigate_to_signup_helper),
-            linkText = stringResource(R.string.navigate_to_login_link)
+            linkText = stringResource(R.string.navigate_to_signup_link)
         ) {
             viewModel.onEvent(AuthEvent.NavigateNext)
         }

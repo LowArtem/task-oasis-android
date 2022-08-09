@@ -1,4 +1,4 @@
-package com.trialbot.feature_auth.presentation.ui.state
+package com.trialbot.feature_auth.presentation.states
 
 data class InputFieldState(
     val text: String = "",

@@ -3,9 +3,9 @@ package com.trialbot.taskoasis.navigation
 import androidx.navigation.NavController
 import com.ramcosta.composedestinations.navigation.navigate
 import com.ramcosta.composedestinations.spec.DestinationSpec
-import com.trialbot.feature_auth.presentation.screens.AuthNavigator
-import com.trialbot.feature_auth.presentation.screens.destinations.LoginScreenDestination
-import com.trialbot.feature_auth.presentation.screens.destinations.RegisterScreenDestination
+import com.trialbot.feature_auth.presentation.ui.screens.AuthNavigator
+import com.trialbot.feature_auth.presentation.ui.screens.destinations.LoginScreenDestination
+import com.trialbot.feature_auth.presentation.ui.screens.destinations.RegisterScreenDestination
 
 class RootNavigator(
     private val currentDestination: DestinationSpec<*>,

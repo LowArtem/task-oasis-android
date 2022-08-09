@@ -2,7 +2,7 @@ package com.trialbot.taskoasis.navigation
 
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
-import com.trialbot.feature_auth.presentation.screens.AuthNavGraph
+import com.trialbot.feature_auth.presentation.ui.screens.AuthNavGraph
 
 object RootNavGraph: NavGraphSpec {
 
