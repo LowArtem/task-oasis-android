@@ -33,7 +33,7 @@ import org.koin.androidx.compose.koinViewModel
 @Destination
 @Composable
 fun LoginScreen(
-    navigator: LoginScreenNavigator,
+    navigator: AuthNavigator,
     viewModel: LoginViewModel = koinViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -48,7 +48,7 @@ fun LoginScreen(
                     navigator.navigateHome()
                 }
                 is UiEvent.NavigateToSignUp -> {
-                    navigator.navigateToSignUp()
+                    navigator.navigateNext()
                 }
                 is UiEvent.ShowShackbar -> {
                     scaffoldState.snackbarHostState.showSnackbar(

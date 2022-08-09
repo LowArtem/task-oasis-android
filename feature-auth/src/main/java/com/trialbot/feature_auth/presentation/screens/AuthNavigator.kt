@@ -1,7 +1,7 @@
 package com.trialbot.feature_auth.presentation.screens
 
-interface LoginScreenNavigator {
+interface AuthNavigator {
 
     fun navigateHome()
-    fun navigateToSignUp()
+    fun navigateNext()
 }
