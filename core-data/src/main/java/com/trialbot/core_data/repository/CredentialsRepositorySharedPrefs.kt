@@ -1,11 +1,11 @@
-package com.trialbot.feature_auth.data.repository
+package com.trialbot.core_data.repository
 
 import androidx.security.crypto.EncryptedSharedPreferences
-import com.trialbot.feature_auth.data.model.Credentials
-import com.trialbot.feature_auth.domain.repository.CredentialsRepository
+import com.trialbot.core_model.Credentials
 
 class CredentialsRepositorySharedPrefs(private val sharedPrefs: EncryptedSharedPreferences) :
     CredentialsRepository {
+
     override fun saveCredentials(credentials: Credentials) {
         with(sharedPrefs.edit()) {
             putString(EMAIL_KEY, credentials.email)

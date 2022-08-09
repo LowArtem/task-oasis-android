@@ -1,6 +1,6 @@
-package com.trialbot.feature_auth.domain.repository
+package com.trialbot.core_data.repository
 
-import com.trialbot.feature_auth.data.model.Credentials
+import com.trialbot.core_model.Credentials
 
 interface CredentialsRepository {
 

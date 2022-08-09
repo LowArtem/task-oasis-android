@@ -4,6 +4,7 @@
     package="com.trialbot.taskoasis">
 
     <application
+        android:name=".TaskOasisApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"

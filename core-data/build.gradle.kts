@@ -14,5 +14,13 @@ dependencies {
     implementation(Kotlin.coroutinesCore)
     implementation(Kotlin.coroutinesAndroid)
 
+    implementation(Security.cryptoKtx)
+
+    implementation(Koin.core)
+    implementation(Koin.android)
+
     testImplementation(TestDependencies.jUnit)
+
+    implementation(project(Modules.model))
+    implementation(project(Modules.utils))
 }

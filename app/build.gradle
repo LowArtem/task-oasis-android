@@ -57,6 +57,8 @@ dependencies {
     implementation(Koin.android)
     implementation(Koin.compose)
 
+    implementation(Security.cryptoKtx)
+
     testImplementation(TestDependencies.jUnit)
     androidTestImplementation(TestDependencies.jUnitExt)
     androidTestImplementation(TestDependencies.espressoCore)
@@ -68,5 +70,6 @@ dependencies {
     implementation(project(Modules.designSystem))
     implementation(project(Modules.utils))
     implementation(project(Modules.model))
+    implementation(project(Modules.data))
     implementation(project(Modules.auth))
 }

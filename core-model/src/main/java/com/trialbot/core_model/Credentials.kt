@@ -1,4 +1,4 @@
-package com.trialbot.feature_auth.data.model
+package com.trialbot.core_model
 
 data class Credentials(
     val email: String,
