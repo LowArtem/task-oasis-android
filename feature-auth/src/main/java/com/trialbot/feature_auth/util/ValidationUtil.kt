@@ -7,3 +7,10 @@ fun String.validateAsEmail(): Boolean {
 }
 
 fun String.validateAsPassword(): Boolean = this.length >= 4
+
+fun String.validateAsUsername(): Boolean {
+    val regexPattern = "^[a-zA-Z0-9_]*$"
+    val regex = regexPattern.toRegex()
+
+    return this.length in 4..29 && regex.matches(this)
+}

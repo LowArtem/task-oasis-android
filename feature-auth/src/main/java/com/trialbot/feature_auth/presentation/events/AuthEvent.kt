@@ -1,6 +1,7 @@
 package com.trialbot.feature_auth.presentation.events
 
 sealed class AuthEvent {
+    data class EnteredUsername(val value: String) : AuthEvent()
     data class EnteredEmail(val value: String) : AuthEvent()
     data class EnteredPassword(val value: String) : AuthEvent()
     object PasswordVisibilityChanged : AuthEvent()

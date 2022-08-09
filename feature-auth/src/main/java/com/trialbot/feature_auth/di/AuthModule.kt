@@ -8,6 +8,7 @@ import com.trialbot.feature_auth.data.repository.AuthRepositoryImpl
 import com.trialbot.feature_auth.domain.repository.AuthRepository
 import com.trialbot.feature_auth.domain.use_case.AuthUseCase
 import com.trialbot.feature_auth.presentation.viewmodels.LoginViewModel
+import com.trialbot.feature_auth.presentation.viewmodels.RegisterViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -57,6 +58,12 @@ val authModule = module {
 
     viewModel {
         LoginViewModel(
+            authUseCase = get()
+        )
+    }
+
+    viewModel {
+        RegisterViewModel(
             authUseCase = get()
         )
     }
