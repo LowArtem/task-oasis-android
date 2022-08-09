@@ -7,25 +7,18 @@ import androidx.lifecycle.viewModelScope
 import com.trialbot.core_utils.Result
 import com.trialbot.feature_auth.data.model.LoginRequest
 import com.trialbot.feature_auth.domain.use_case.AuthUseCase
-import com.trialbot.feature_auth.presentation.events.LoginEvent
+import com.trialbot.feature_auth.presentation.events.AuthEvent
 import com.trialbot.feature_auth.presentation.events.UiEvent
+import com.trialbot.feature_auth.presentation.ui.state.ErrorState
+import com.trialbot.feature_auth.presentation.ui.state.InputFieldState
+import com.trialbot.feature_auth.util.validateAsEmail
+import com.trialbot.feature_auth.util.validateAsPassword
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-
-data class ErrorState(
-    val message: String = "",
-    val isErrorOccurred: Boolean = false
-)
-
-data class InputFieldState(
-    val text: String = "",
-    val isPasswordVisible: Boolean = true,
-    val validatingError: ErrorState = ErrorState()
-)
 
 class LoginViewModel(
     private val authUseCase: AuthUseCase
@@ -34,28 +27,32 @@ class LoginViewModel(
     private val _email = mutableStateOf(InputFieldState())
     val email: State<InputFieldState> = _email
 
-    private val _password = mutableStateOf(InputFieldState(
-        isPasswordVisible = false
-    ))
+    private val _password = mutableStateOf(
+        InputFieldState(
+            isPasswordVisible = false
+        )
+    )
     val password: State<InputFieldState> = _password
 
     private val _uiEventsFlow = MutableSharedFlow<UiEvent>()
     val uiEventsFlow = _uiEventsFlow.asSharedFlow()
 
-    private val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
         viewModelScope.launch {
-            _uiEventsFlow.emit(UiEvent.ShowShackbar(
-                throwable.message ?: "Unknown error occurred"
-            ))
+            _uiEventsFlow.emit(
+                UiEvent.ShowShackbar(
+                    throwable.message ?: "Unknown error occurred"
+                )
+            )
         }
     }
 
-    fun onEvent(event: LoginEvent) {
+    fun onEvent(event: AuthEvent) {
         when (event) {
-            is LoginEvent.EnteredEmail -> {
+            is AuthEvent.EnteredEmail -> {
                 _email.value = _email.value.copy(text = event.value)
-                if (!isEmailValid(email.value.text)) {
+                if (!email.value.text.validateAsEmail()) {
                     _email.value = email.value.copy(
                         validatingError = ErrorState(
                             message = "Invalid email",
@@ -71,9 +68,9 @@ class LoginViewModel(
                     )
                 }
             }
-            is LoginEvent.EnteredPassword -> {
+            is AuthEvent.EnteredPassword -> {
                 _password.value = _password.value.copy(text = event.value)
-                if (!isPasswordValid(password.value.text)) {
+                if (!password.value.text.validateAsPassword()) {
                     _password.value = password.value.copy(
                         validatingError = ErrorState(
                             message = "Password should contain at least 4 characters",
@@ -89,12 +86,12 @@ class LoginViewModel(
                     )
                 }
             }
-            is LoginEvent.PasswordVisibilityChanged -> {
+            is AuthEvent.PasswordVisibilityChanged -> {
                 _password.value =
                     _password.value.copy(isPasswordVisible = !_password.value.isPasswordVisible)
             }
-            is LoginEvent.Login -> {
-                if (isEmailValid(email.value.text) && isPasswordValid(password.value.text)) {
+            is AuthEvent.Authenticate -> {
+                if (email.value.text.validateAsEmail() && password.value.text.validateAsPassword()) {
                     viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
                         val result = authUseCase.login(
                             LoginRequest(
@@ -116,19 +113,11 @@ class LoginViewModel(
                     }
                 }
             }
-            is LoginEvent.NavigateToSignUp -> {
+            is AuthEvent.NavigateNext -> {
                 viewModelScope.launch(coroutineExceptionHandler) {
-                    _uiEventsFlow.emit(UiEvent.NavigateToSignUp)
+                    _uiEventsFlow.emit(UiEvent.NavigateToNext)
                 }
             }
         }
     }
-
-    private fun isEmailValid(emailString: String): Boolean {
-        val regexPattern = "^[a-zA-Z\\d_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z\\d.-]+$"
-        val regex = regexPattern.toRegex()
-        return regex.matches(emailString)
-    }
-
-    private fun isPasswordValid(passwordString: String): Boolean = passwordString.length >= 4
 }

@@ -1,11 +1,10 @@
 package com.trialbot.feature_auth.presentation.screens
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -17,9 +16,10 @@ import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
+import com.trialbot.core_designsystem.ui.theme.infoColor
 import com.trialbot.core_uicomponents.components.InputHintField
 import com.trialbot.feature_auth.R
-import com.trialbot.feature_auth.presentation.events.LoginEvent
+import com.trialbot.feature_auth.presentation.events.AuthEvent
 import com.trialbot.feature_auth.presentation.events.UiEvent
 import com.trialbot.feature_auth.presentation.ui.components.EmptyAuthScreen
 import com.trialbot.feature_auth.presentation.ui.components.SubmitButton
@@ -47,7 +47,7 @@ fun LoginScreen(
                 is UiEvent.NavigateToHome -> {
                     navigator.navigateHome()
                 }
-                is UiEvent.NavigateToSignUp -> {
+                is UiEvent.NavigateToNext -> {
                     navigator.navigateNext()
                 }
                 is UiEvent.ShowShackbar -> {
@@ -70,7 +70,7 @@ fun LoginScreen(
                 .padding(top = 134.dp)
                 .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
                 .align(Alignment.CenterHorizontally),
-            onValueChanged = { viewModel.onEvent(LoginEvent.EnteredEmail(it)) },
+            onValueChanged = { viewModel.onEvent(AuthEvent.EnteredEmail(it)) },
             isError = emailState.validatingError.isErrorOccurred,
             error = emailState.validatingError.message
         )
@@ -82,14 +82,14 @@ fun LoginScreen(
                 .padding(top = 40.dp)
                 .sizeIn(maxWidth = 336.dp, minHeight = 63.dp)
                 .align(Alignment.CenterHorizontally),
-            onValueChanged = { viewModel.onEvent(LoginEvent.EnteredPassword(it)) },
+            onValueChanged = { viewModel.onEvent(AuthEvent.EnteredPassword(it)) },
             isError = passwordState.validatingError.isErrorOccurred,
             error = passwordState.validatingError.message,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             passwordVisibility = passwordState.isPasswordVisible,
             trailingIcon = {
                 IconButton(onClick = {
-                    viewModel.onEvent(LoginEvent.PasswordVisibilityChanged)
+                    viewModel.onEvent(AuthEvent.PasswordVisibilityChanged)
                 }) {
                     if (passwordState.isPasswordVisible)
                         Icon(
@@ -105,24 +105,29 @@ fun LoginScreen(
             }
         )
 
+        Spacer(
+            modifier = Modifier
+                .weight(1f)
+        )
+
         SubmitButton(
             modifier = Modifier
-                .padding(top = 78.dp)
+                .padding(bottom = 30.dp, top = 80.dp)
                 .align(Alignment.CenterHorizontally),
             text = "Log In",
             innerTextPadding = 90.dp
         ) {
-            viewModel.onEvent(LoginEvent.Login)
+            viewModel.onEvent(AuthEvent.Authenticate)
         }
 
         TextWithLink(
             modifier = Modifier
-                .padding(top = 30.dp)
+                .padding(bottom = 80.dp)
                 .align(Alignment.CenterHorizontally),
             mainText = stringResource(R.string.navigate_to_signup_helper),
             linkText = stringResource(R.string.navigate_to_signup_link)
         ) {
-            viewModel.onEvent(LoginEvent.NavigateToSignUp)
+            viewModel.onEvent(AuthEvent.NavigateNext)
         }
     }
 }
