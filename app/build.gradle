@@ -53,6 +53,10 @@ dependencies {
     implementation(AndroidCore.lifecycleCore)
     implementation(AndroidCore.activityCompose)
 
+    implementation(Koin.core)
+    implementation(Koin.android)
+    implementation(Koin.compose)
+
     testImplementation(TestDependencies.jUnit)
     androidTestImplementation(TestDependencies.jUnitExt)
     androidTestImplementation(TestDependencies.espressoCore)
@@ -61,10 +65,8 @@ dependencies {
     debugImplementation(Debug.composeUiTooling)
     debugImplementation(Debug.composeUiTestManifest)
 
-    implementation(project(Modules.uicomponents))
     implementation(project(Modules.designSystem))
     implementation(project(Modules.utils))
     implementation(project(Modules.model))
-    implementation(project(Modules.data))
     implementation(project(Modules.auth))
 }
