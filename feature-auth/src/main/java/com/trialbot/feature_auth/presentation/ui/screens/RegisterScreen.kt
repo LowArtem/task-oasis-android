@@ -135,7 +135,7 @@ fun RegisterScreen(
             modifier = Modifier
                 .padding(bottom = 50.dp)
                 .align(Alignment.CenterHorizontally),
-            mainText = stringResource(R.string.navigate_to_signup_helper),
+            mainText = stringResource(R.string.navigate_to_login_helper),
             linkText = stringResource(R.string.navigate_to_login_link)
         ) {
             viewModel.onEvent(AuthEvent.NavigateNext)

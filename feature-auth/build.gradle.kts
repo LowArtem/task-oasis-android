@@ -72,5 +72,5 @@ dependencies {
     implementation(project(Modules.data))
     implementation(project(Modules.utils))
     implementation(project(Modules.designSystem))
-    implementation(project(Modules.uicomponents))
+    implementation(project(Modules.uiComponents))
 }

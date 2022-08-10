@@ -18,6 +18,9 @@ object Versions {
     // Ksp
     const val ksp = "${Configs.kotlinVersion}-1.0.6"
 
+    // Work manager
+    const val workManager = "2.7.1"
+
     // Navigation
     const val composeNavigation = "2.4.2"
     const val composeDestination = "1.6.15-beta"
@@ -83,6 +86,11 @@ object Koin {
     const val compose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
 }
 
+object WorkManager {
+    const val core = "androidx.work:work-runtime-ktx:${Versions.workManager}"
+    const val test = "androidx.work:work-testing:${Versions.workManager}"
+}
+
 object Navigation {
     const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
     const val navigationDestination = "io.github.raamcosta.compose-destinations:core:${Versions.composeDestination}"
@@ -127,7 +135,7 @@ object Debug {
 object Modules {
     const val data = ":core-data"
     const val model = ":core-model"
-    const val uicomponents = ":core-uicomponents"
+    const val uiComponents = ":core-uicomponents"
     const val designSystem = ":core-designsystem"
     const val utils = ":core-utils"
     const val auth = ":feature-auth"
