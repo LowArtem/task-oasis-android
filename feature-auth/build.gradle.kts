@@ -38,7 +38,6 @@ dependencies {
     implementation(Kotlin.coroutinesCore)
     implementation(Kotlin.coroutinesAndroid)
 
-    implementation(AndroidCore.core)
     implementation(Kotlin.composeCore)
     implementation(Kotlin.composeMaterial)
     implementation(Kotlin.uiTooling)

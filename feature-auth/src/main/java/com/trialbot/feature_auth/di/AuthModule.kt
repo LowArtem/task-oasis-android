@@ -34,7 +34,7 @@ val authModule = module {
             .create()
     }
 
-    factory(named(AUTH_RETROFIT_CLIENT)) {
+    single(named(AUTH_RETROFIT_CLIENT)) {
         Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .client(get(named(AUTH_OKHTTP_CLIENT)))

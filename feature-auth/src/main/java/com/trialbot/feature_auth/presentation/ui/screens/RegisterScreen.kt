@@ -123,7 +123,7 @@ fun RegisterScreen(
 
         SubmitButton(
             modifier = Modifier
-                .padding(bottom = 30.dp, top = 60.dp)
+                .padding(bottom = 30.dp, top = 30.dp)
                 .align(Alignment.CenterHorizontally),
             text = "Sign Up",
             innerTextPadding = 90.dp
@@ -133,7 +133,7 @@ fun RegisterScreen(
 
         TextWithLink(
             modifier = Modifier
-                .padding(bottom = 50.dp)
+                .padding(bottom = 80.dp)
                 .align(Alignment.CenterHorizontally),
             mainText = stringResource(R.string.navigate_to_login_helper),
             linkText = stringResource(R.string.navigate_to_login_link)
