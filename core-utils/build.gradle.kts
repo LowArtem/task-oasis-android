@@ -11,5 +11,6 @@ java {
 dependencies {
     implementation(Kotlin.coroutinesCore)
 
+    implementation(Retrofit.core)
     implementation(Retrofit.okHttpCore)
 }
