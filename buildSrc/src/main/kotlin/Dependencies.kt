@@ -4,6 +4,9 @@ object Versions {
     const val lifecycleCore = "2.5.1"
     const val activityCompose = "1.5.1"
 
+    // Splash screen
+    const val splashScreen = "1.0.0"
+
     // Design
     const val appCompat = "1.4.2"
     const val material = "1.6.1"
@@ -61,6 +64,7 @@ object AndroidCore {
     const val lifecycleCore = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleCore}"
     const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.lifecycleCore}"
     const val activityCompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
+    const val splashScreen = "androidx.core:core-splashscreen:${Versions.splashScreen}"
 }
 
 object Design {

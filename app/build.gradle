@@ -64,12 +64,12 @@ dependencies {
     implementation(Kotlin.uiTooling)
     implementation(AndroidCore.lifecycleCore)
     implementation(AndroidCore.activityCompose)
+    implementation(AndroidCore.splashScreen)
 
     implementation(Accompanist.systemUiController)
 
     implementation(Koin.core)
     implementation(Koin.android)
-    implementation(Koin.compose)
 
     implementation(Security.cryptoKtx)
 
