@@ -1,4 +1,4 @@
-package com.trialbot.feature_auth.presentation.ui.screens
+package com.trialbot.feature_auth.presentation
 
 interface AuthNavigator {
 

@@ -20,6 +20,7 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
 import com.trialbot.core_uicomponents.components.InputHintField
 import com.trialbot.feature_auth.R
+import com.trialbot.feature_auth.presentation.AuthNavigator
 import com.trialbot.feature_auth.presentation.events.AuthEvent
 import com.trialbot.feature_auth.presentation.events.UiEvent
 import com.trialbot.feature_auth.presentation.ui.components.EmptyAuthScreen
@@ -29,7 +30,6 @@ import com.trialbot.feature_auth.presentation.viewmodels.LoginViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
-// TODO: переместить start=true на splashScreen
 @RootNavGraph(start = true)
 @Destination
 @Composable
