@@ -18,6 +18,9 @@ object Versions {
     // Koin
     const val koin = "3.2.0"
 
+    // Hilt
+    const val hilt = "2.43.2"
+
     // Ksp
     const val ksp = "${Configs.kotlinVersion}-1.0.6"
 
@@ -90,6 +93,12 @@ object Koin {
     const val compose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
 }
 
+object Hilt {
+    const val coreProjectGradle = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
+    const val android = "com.google.dagger:hilt-android:${Versions.hilt}"
+    const val kapt = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+}
+
 object WorkManager {
     const val core = "androidx.work:work-runtime-ktx:${Versions.workManager}"
     const val test = "androidx.work:work-testing:${Versions.workManager}"
@@ -139,6 +148,7 @@ object Debug {
 object Modules {
     const val data = ":core-data"
     const val model = ":core-model"
+    const val domain = ":core-domain"
     const val uiComponents = ":core-uicomponents"
     const val designSystem = ":core-designsystem"
     const val utils = ":core-utils"

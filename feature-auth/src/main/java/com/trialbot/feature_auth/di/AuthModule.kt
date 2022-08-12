@@ -28,12 +28,6 @@ val authModule = module {
         }.build()
     }
 
-    single {
-        GsonBuilder()
-            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-            .create()
-    }
-
     single(named(AUTH_RETROFIT_CLIENT)) {
         Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)

@@ -16,11 +16,17 @@ dependencies {
 
     implementation(Security.cryptoKtx)
 
+    implementation(Retrofit.core)
+    implementation(Retrofit.okHttpCore)
+    implementation(Retrofit.okHttpLogging)
+    implementation(Retrofit.converterGson)
+
     implementation(Koin.core)
     implementation(Koin.android)
 
     testImplementation(TestDependencies.jUnit)
 
     implementation(project(Modules.model))
+    implementation(project(Modules.domain))
     implementation(project(Modules.utils))
 }
