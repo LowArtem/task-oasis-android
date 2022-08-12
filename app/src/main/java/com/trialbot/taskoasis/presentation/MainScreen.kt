@@ -12,9 +12,10 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.dependency
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
-import com.trialbot.taskoasis.navigation.RootNavigator
 import com.trialbot.taskoasis.navigation.MainNavGraph
+import com.trialbot.taskoasis.navigation.RootNavigator
 import com.trialbot.taskoasis.presentation.components.AppBottomNavBar
+import com.trialbot.taskoasis.presentation.components.AppTopBar
 
 @RootNavGraph(start = true)
 @Destination
@@ -26,6 +27,9 @@ fun MainScreen(
     val navController = rememberNavController()
 
     Scaffold(
+        topBar = {
+            AppTopBar(navController = navController)
+        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { /*TODO*/ },

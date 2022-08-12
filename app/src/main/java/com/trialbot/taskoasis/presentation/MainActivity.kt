@@ -12,10 +12,7 @@ import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.navigation.dependency
 import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
 import com.trialbot.feature_auth.presentation.ui.screens.AuthNavGraph
-import com.trialbot.feature_habits.presentation.screens.HabitsNavGraph
-import com.trialbot.feature_home.presentation.screens.HomeNavGraph
-import com.trialbot.feature_home.presentation.screens.destinations.HomeScreenDestination
-import com.trialbot.taskoasis.navigation.MainNavGraph
+import com.trialbot.feature_tasks.presentation.screens.TasksNavGraph
 import com.trialbot.taskoasis.navigation.RootNavGraph
 import com.trialbot.taskoasis.navigation.RootNavigator
 import com.trialbot.taskoasis.presentation.destinations.MainScreenDestination
@@ -51,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
                 if (viewModel.isUserLoggedIn) {
                     MainScreen(
-                        startDestination = HomeNavGraph, // TODO: получать это из настроек (пользователь может выбрать стартовый экран)
+                        startDestination = TasksNavGraph, // TODO: получать это из настроек (пользователь может выбрать стартовый экран)
                         navigator = RootNavigator(MainScreenDestination, navController)
                     )
                 } else {
