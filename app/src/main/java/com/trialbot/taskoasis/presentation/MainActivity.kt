@@ -13,7 +13,6 @@ import com.ramcosta.composedestinations.navigation.dependency
 import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
 import com.trialbot.feature_auth.presentation.ui.screens.AuthNavGraph
 import com.trialbot.feature_home.presentation.screens.HomeNavGraph
-import com.trialbot.feature_home.presentation.screens.destinations.HomeScreenDestination
 import com.trialbot.taskoasis.navigation.RootNavGraph
 import com.trialbot.taskoasis.navigation.RootNavigator
 import org.koin.android.ext.android.inject

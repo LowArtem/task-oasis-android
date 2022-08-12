@@ -10,7 +10,10 @@
       <module name="TaskOasis.core-designsystem" target="11" />
       <module name="TaskOasis.core-uicomponents" target="11" />
       <module name="TaskOasis.feature-auth" target="11" />
+      <module name="TaskOasis.feature-habits" target="11" />
       <module name="TaskOasis.feature-home" target="11" />
+      <module name="TaskOasis.feature-profile" target="11" />
+      <module name="TaskOasis.feature-tasks" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -154,4 +154,7 @@ object Modules {
     const val utils = ":core-utils"
     const val auth = ":feature-auth"
     const val home = ":feature-home"
+    const val tasks = ":feature-tasks"
+    const val habits = ":feature-habits"
+    const val profile = ":feature-profile"
 }
