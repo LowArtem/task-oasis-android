@@ -2,7 +2,7 @@ package com.trialbot.taskoasis.di
 
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.trialbot.taskoasis.MainViewModel
+import com.trialbot.taskoasis.presentation.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

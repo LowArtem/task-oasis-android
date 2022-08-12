@@ -1,4 +1,4 @@
-package com.trialbot.taskoasis
+package com.trialbot.taskoasis.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

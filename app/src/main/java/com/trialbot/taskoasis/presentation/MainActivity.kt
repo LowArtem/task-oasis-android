@@ -1,4 +1,4 @@
-package com.trialbot.taskoasis
+package com.trialbot.taskoasis.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
