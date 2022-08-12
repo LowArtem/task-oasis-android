@@ -37,6 +37,7 @@ object TaskOasisIcons {
     val repeat = R.drawable.ic_repeat
     val priorityExclamation = R.drawable.ic_exclamation
     val errorCircle = R.drawable.ic_error
+    val avatar = Icons.Default.Person
 }
 
 /**

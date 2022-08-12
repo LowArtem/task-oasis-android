@@ -28,6 +28,9 @@ dependencies {
     implementation(AndroidCore.lifecycleCore)
     implementation(AndroidCore.activityCompose)
 
+    implementation(Navigation.navigationCompose)
+    implementation(Navigation.navigationDestination)
+
     testImplementation(TestDependencies.jUnit)
     androidTestImplementation(TestDependencies.jUnitExt)
     androidTestImplementation(TestDependencies.espressoCore)
@@ -37,4 +40,9 @@ dependencies {
     debugImplementation(Debug.composeUiTestManifest)
 
     implementation(project(Modules.designSystem))
+
+    implementation(project(Modules.home))
+    implementation(project(Modules.tasks))
+    implementation(project(Modules.habits))
+    implementation(project(Modules.profile))
 }
