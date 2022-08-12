@@ -19,8 +19,8 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
 import com.trialbot.core_uicomponents.components.InputHintField
-import com.trialbot.feature_auth.R
 import com.trialbot.feature_auth.AuthNavigator
+import com.trialbot.feature_auth.R
 import com.trialbot.feature_auth.presentation.events.AuthEvent
 import com.trialbot.feature_auth.presentation.events.UiEvent
 import com.trialbot.feature_auth.presentation.ui.components.EmptyAuthScreen

@@ -1,6 +1,5 @@
 package com.trialbot.feature_auth.di
 
-import com.google.gson.GsonBuilder
 import com.trialbot.core_model.constants.Constants
 import com.trialbot.core_utils.ignoreAllSSLErrors
 import com.trialbot.feature_auth.data.remote.AuthDao

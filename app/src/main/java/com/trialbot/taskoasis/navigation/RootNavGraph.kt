@@ -3,6 +3,7 @@ package com.trialbot.taskoasis.navigation
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.trialbot.feature_auth.presentation.ui.screens.AuthNavGraph
+import com.trialbot.feature_home.presentation.screens.HomeNavGraph
 
 object RootNavGraph: NavGraphSpec {
 
@@ -14,6 +15,7 @@ object RootNavGraph: NavGraphSpec {
 
     // TODO: specify all NavGraphs here
     override val nestedNavGraphs = listOf(
-        AuthNavGraph
+        AuthNavGraph,
+        HomeNavGraph
     )
 }

@@ -8,6 +8,7 @@ import com.trialbot.feature_auth.AuthNavigator
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.AuthDirectionDestination
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.LoginScreenDestination
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.RegisterScreenDestination
+import com.trialbot.feature_home.presentation.screens.destinations.HomeScreenDestination
 
 class RootNavigator(
     private val currentDestination: DestinationSpec<*>,
@@ -16,7 +17,11 @@ class RootNavigator(
 
 
     override fun navigateHome() {
-        TODO("Not yet implemented")
+        navController.navigate(HomeScreenDestination) {
+            popUpTo(currentDestination) {
+                inclusive = true
+            }
+        }
     }
 
     override fun navigateNext() {

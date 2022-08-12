@@ -153,4 +153,5 @@ object Modules {
     const val designSystem = ":core-designsystem"
     const val utils = ":core-utils"
     const val auth = ":feature-auth"
+    const val home = ":feature-home"
 }

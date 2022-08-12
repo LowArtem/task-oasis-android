@@ -90,4 +90,5 @@ dependencies {
     implementation(project(Modules.model))
     implementation(project(Modules.data))
     implementation(project(Modules.auth))
+    implementation(project(Modules.home))
 }
