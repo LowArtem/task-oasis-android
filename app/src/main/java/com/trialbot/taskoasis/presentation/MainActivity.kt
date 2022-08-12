@@ -12,9 +12,13 @@ import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.navigation.dependency
 import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
 import com.trialbot.feature_auth.presentation.ui.screens.AuthNavGraph
+import com.trialbot.feature_habits.presentation.screens.HabitsNavGraph
 import com.trialbot.feature_home.presentation.screens.HomeNavGraph
+import com.trialbot.feature_home.presentation.screens.destinations.HomeScreenDestination
+import com.trialbot.taskoasis.navigation.MainNavGraph
 import com.trialbot.taskoasis.navigation.RootNavGraph
 import com.trialbot.taskoasis.navigation.RootNavigator
+import com.trialbot.taskoasis.presentation.destinations.MainScreenDestination
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
@@ -44,14 +48,22 @@ class MainActivity : ComponentActivity() {
                 }
 
                 val navController = rememberNavController()
-                DestinationsNavHost(
-                    navController = navController,
-                    navGraph = RootNavGraph,
-                    startRoute = if (viewModel.isUserLoggedIn) HomeNavGraph else AuthNavGraph,
-                    dependenciesContainerBuilder = {
-                        dependency(RootNavigator(destination, navController))
-                    }
-                )
+
+                if (viewModel.isUserLoggedIn) {
+                    MainScreen(
+                        startDestination = HomeNavGraph, // TODO: получать это из настроек (пользователь может выбрать стартовый экран)
+                        navigator = RootNavigator(MainScreenDestination, navController)
+                    )
+                } else {
+                    DestinationsNavHost(
+                        navController = navController,
+                        navGraph = RootNavGraph,
+                        startRoute = AuthNavGraph,
+                        dependenciesContainerBuilder = {
+                            dependency(RootNavigator(destination, navController))
+                        }
+                    )
+                }
             }
         }
     }

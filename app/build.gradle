@@ -57,6 +57,11 @@ kotlin {
     }
 }
 
+ksp {
+    arg("compose-destinations.mode", "navgraphs")
+    arg("compose-destinations.moduleName", "main")
+}
+
 dependencies {
     implementation(AndroidCore.core)
     implementation(Kotlin.composeCore)
@@ -86,6 +91,7 @@ dependencies {
     debugImplementation(Debug.composeUiTestManifest)
 
     implementation(project(Modules.designSystem))
+    implementation(project(Modules.uiComponents))
     implementation(project(Modules.utils))
     implementation(project(Modules.model))
     implementation(project(Modules.data))
