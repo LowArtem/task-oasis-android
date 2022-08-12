@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import com.ramcosta.composedestinations.navigation.navigate
 import com.ramcosta.composedestinations.navigation.popUpTo
 import com.ramcosta.composedestinations.spec.DestinationSpec
-import com.trialbot.feature_auth.presentation.AuthNavigator
+import com.trialbot.feature_auth.AuthNavigator
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.AuthDirectionDestination
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.LoginScreenDestination
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.RegisterScreenDestination
