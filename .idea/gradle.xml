@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/core-uicomponents" />
             <option value="$PROJECT_DIR$/core-utils" />
             <option value="$PROJECT_DIR$/feature-auth" />
+            <option value="$PROJECT_DIR$/feature-home" />
           </set>
         </option>
       </GradleProjectSettings>
