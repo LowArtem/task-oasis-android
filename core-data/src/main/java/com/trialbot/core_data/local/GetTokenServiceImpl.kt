@@ -17,4 +17,12 @@ class GetTokenServiceImpl(
 
         return credentials.token
     }
+
+    /**
+     * Check is there authorization token in local shared preferences
+     * @return false if token is null, true if not
+     */
+    override fun checkIfTokenExists(): Boolean {
+        return credentialsRepository.getCredentials() != null
+    }
 }

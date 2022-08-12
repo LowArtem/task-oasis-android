@@ -7,10 +7,11 @@ class CredentialsRepositorySharedPrefs(private val sharedPrefs: EncryptedSharedP
     CredentialsRepository {
 
     override fun saveCredentials(credentials: Credentials) {
-        with(sharedPrefs.edit()) {
+        sharedPrefs.edit().apply {
             putString(EMAIL_KEY, credentials.email)
             putString(PASSWORD_KEY, credentials.password)
             putString(TOKEN_KEY, credentials.token)
+            apply()
         }
     }
 

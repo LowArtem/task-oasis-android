@@ -12,6 +12,8 @@ import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.navigation.dependency
 import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
 import com.trialbot.feature_auth.presentation.ui.screens.AuthNavGraph
+import com.trialbot.feature_home.presentation.screens.HomeNavGraph
+import com.trialbot.feature_home.presentation.screens.destinations.HomeScreenDestination
 import com.trialbot.taskoasis.navigation.RootNavGraph
 import com.trialbot.taskoasis.navigation.RootNavigator
 import org.koin.android.ext.android.inject
@@ -46,7 +48,7 @@ class MainActivity : ComponentActivity() {
                 DestinationsNavHost(
                     navController = navController,
                     navGraph = RootNavGraph,
-                    startRoute = AuthNavGraph,
+                    startRoute = if (viewModel.isUserLoggedIn) HomeNavGraph else AuthNavGraph,
                     dependenciesContainerBuilder = {
                         dependency(RootNavigator(destination, navController))
                     }

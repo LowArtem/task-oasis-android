@@ -2,6 +2,7 @@ package com.trialbot.taskoasis.di
 
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.trialbot.taskoasis.domain.LoginStatusUseCase
 import com.trialbot.taskoasis.presentation.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -23,7 +24,11 @@ val appModule = module {
         ) as EncryptedSharedPreferences
     }
 
+    factory {
+        LoginStatusUseCase(get())
+    }
+
     viewModel {
-        MainViewModel()
+        MainViewModel(get())
     }
 }
