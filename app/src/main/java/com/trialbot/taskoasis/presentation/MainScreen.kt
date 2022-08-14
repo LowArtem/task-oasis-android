@@ -8,53 +8,67 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.dependency
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
-import com.trialbot.taskoasis.navigation.MainNavGraph
+import com.trialbot.feature_auth.presentation.ui.screens.AuthNavGraph
+import com.trialbot.feature_home.presentation.screens.HomeNavGraph
+import com.trialbot.feature_tasks.presentation.screens.TasksNavGraph
 import com.trialbot.taskoasis.navigation.RootNavigator
 import com.trialbot.taskoasis.presentation.components.AppBottomNavBar
 import com.trialbot.taskoasis.presentation.components.AppTopBar
 
-@RootNavGraph(start = true)
-@Destination
+@Destination(start = true)
 @Composable
 fun MainScreen(
-    startDestination: NavGraphSpec,
-    navigator: RootNavigator
+    isUserLoggedIn: Boolean = false
 ) {
     val navController = rememberNavController()
+    val startMainDestination: NavGraphSpec = HomeNavGraph // TODO: получать это из настроек (пользователь может выбрать стартовый экран)
 
-    Scaffold(
-        topBar = {
-            AppTopBar(navController = navController)
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /*TODO*/ },
-                backgroundColor = MaterialTheme.colors.primary
-            ) {
-                Icon(
-                    imageVector = TaskOasisIcons.plus,
-                    contentDescription = "Add button",
-                    tint = MaterialTheme.colors.onPrimary,
-                    modifier = Modifier.size(35.dp, 35.dp)
+    if (isUserLoggedIn) {
+        Scaffold(
+            topBar = {
+                AppTopBar(
+                    navController = navController,
+                    onNavDrawerButtonClick = { }
                 )
+            },
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { /*TODO*/ },
+                    backgroundColor = MaterialTheme.colors.primary
+                ) {
+                    Icon(
+                        imageVector = TaskOasisIcons.plus,
+                        contentDescription = "Add button",
+                        tint = MaterialTheme.colors.onPrimary,
+                        modifier = Modifier.size(35.dp, 35.dp)
+                    )
+                }
+            },
+            floatingActionButtonPosition = FabPosition.Center,
+            isFloatingActionButtonDocked = true,
+            bottomBar = {
+                AppBottomNavBar(navController = navController)
             }
-        },
-        floatingActionButtonPosition = FabPosition.Center,
-        isFloatingActionButtonDocked = true,
-        bottomBar = {
-            AppBottomNavBar(navController = navController)
+        ) {
+            DestinationsNavHost(
+                navController = navController,
+                navGraph = com.trialbot.taskoasis.navigation.RootNavGraph,
+                startRoute = startMainDestination,
+                dependenciesContainerBuilder = {
+                    dependency(RootNavigator(destination, navController))
+                }
+            )
         }
-    ) {
+    } else {
         DestinationsNavHost(
             navController = navController,
-            navGraph = MainNavGraph,
-            startRoute = startDestination,
+            navGraph = com.trialbot.taskoasis.navigation.RootNavGraph,
+            startRoute = AuthNavGraph,
             dependenciesContainerBuilder = {
-                dependency(navigator)
+                dependency(RootNavigator(destination, navController))
             }
         )
     }

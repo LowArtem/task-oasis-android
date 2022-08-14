@@ -44,23 +44,9 @@ class MainActivity : ComponentActivity() {
                     )
                 }
 
-                val navController = rememberNavController()
-
-                if (viewModel.isUserLoggedIn) {
-                    MainScreen(
-                        startDestination = TasksNavGraph, // TODO: получать это из настроек (пользователь может выбрать стартовый экран)
-                        navigator = RootNavigator(MainScreenDestination, navController)
-                    )
-                } else {
-                    DestinationsNavHost(
-                        navController = navController,
-                        navGraph = RootNavGraph,
-                        startRoute = AuthNavGraph,
-                        dependenciesContainerBuilder = {
-                            dependency(RootNavigator(destination, navController))
-                        }
-                    )
-                }
+                MainScreen(
+                    isUserLoggedIn = viewModel.isUserLoggedIn
+                )
             }
         }
     }

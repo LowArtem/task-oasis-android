@@ -8,7 +8,7 @@ import com.trialbot.feature_auth.AuthNavigator
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.AuthDirectionDestination
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.LoginScreenDestination
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.RegisterScreenDestination
-import com.trialbot.feature_home.presentation.screens.destinations.HomeScreenDestination
+import com.trialbot.taskoasis.presentation.destinations.MainScreenDestination
 
 class RootNavigator(
     private val currentDestination: DestinationSpec<*>,
@@ -17,10 +17,11 @@ class RootNavigator(
 
 
     override fun navigateHome() {
-        navController.navigate(HomeScreenDestination) {
+        navController.navigate(MainScreenDestination(isUserLoggedIn = true)) {
             popUpTo(currentDestination) {
                 inclusive = true
             }
+            launchSingleTop = true
         }
     }
 

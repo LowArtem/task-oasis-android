@@ -14,7 +14,8 @@ import com.trialbot.taskoasis.navigation.BottomBarDestination
 
 @Composable
 fun AppTopBar(
-    navController: NavController
+    navController: NavController,
+    onNavDrawerButtonClick: () -> Unit
 ) {
     val currentDestination = navController.currentDestinationAsState()
     val title = (BottomBarDestination.values()
@@ -31,7 +32,7 @@ fun AppTopBar(
         backgroundColor = MaterialTheme.colors.background,
         navigationIcon = {
             IconButton(
-                onClick = { /* TODO */ }
+                onClick = onNavDrawerButtonClick
             ) {
                 Icon(
                     painter = painterResource(id = TaskOasisIcons.burgerMenu),
