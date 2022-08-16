@@ -50,6 +50,9 @@ object Versions {
     const val espressoCore = "3.4.0"
     const val mockk = "1.12.5"
     const val assertJ = "3.23.1"
+
+    // Logging
+    const val timber = "5.0.1"
 }
 
 object Configs {
@@ -143,6 +146,10 @@ object TestDependencies {
 object Debug {
     const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.composeCore}"
     const val composeUiTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.composeCore}"
+}
+
+object Logging {
+    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 }
 
 object Modules {

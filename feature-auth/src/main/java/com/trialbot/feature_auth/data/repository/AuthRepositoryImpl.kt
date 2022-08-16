@@ -1,6 +1,8 @@
 package com.trialbot.feature_auth.data.repository
 
+import android.util.Log
 import com.trialbot.core_model.User
+import com.trialbot.core_model.constants.Constants.APP_LOGGING_TAG
 import com.trialbot.core_model.exceptions.EmptyResponseBodyException
 import com.trialbot.core_model.exceptions.WrongRemoteResponseException
 import com.trialbot.core_utils.Result
@@ -16,13 +18,24 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
     override suspend fun login(loginRequest: LoginRequest): Result<User> {
         val response = authDao.login(loginRequest)
+
+        Log.d(APP_LOGGING_TAG, "Login response code -> ${response.code()}")
+
         return if (!response.isSuccessful) {
             when (response.code()) {
-                400 -> {
-                    Result.Error(WrongRemoteResponseException(response.body().toString()))
+                in 400..499 -> {
+                    val message = (response.body()?.toString() ?: "").ifBlank {
+                        "Wrong credentials"
+                    }
+
+                    Result.Error(WrongRemoteResponseException(message))
                 }
                 else -> {
-                    Result.Error(WrongRemoteResponseException("Unknown error: ${response.body().toString()}"))
+                    val message = (response.body()?.toString() ?: "").ifBlank {
+                        "Server internal error"
+                    }
+
+                    Result.Error(WrongRemoteResponseException("Unknown error: $message"))
                 }
             }
         } else {
@@ -37,13 +50,24 @@ class AuthRepositoryImpl(
 
     override suspend fun register(registerRequest: RegisterRequest): Result<User> {
         val response = authDao.register(registerRequest)
+
+        Log.d(APP_LOGGING_TAG, "Register response code -> ${response.code()}")
+
         return if (!response.isSuccessful) {
             when (response.code()) {
-                400 -> {
-                    Result.Error(WrongRemoteResponseException(response.body().toString()))
+                in 400..499 -> {
+                    val message = (response.body()?.text ?: "").ifBlank {
+                        "User with this email or username is already exist"
+                    }
+
+                    Result.Error(WrongRemoteResponseException(message))
                 }
                 else -> {
-                    Result.Error(WrongRemoteResponseException("Unknown error: ${response.body().toString()}"))
+                    val message = (response.body()?.text ?: "").ifBlank {
+                        "Server internal error"
+                    }
+
+                    Result.Error(WrongRemoteResponseException("Unknown error: $message"))
                 }
             }
         } else {

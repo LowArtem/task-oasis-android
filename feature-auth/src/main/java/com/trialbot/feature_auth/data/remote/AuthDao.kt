@@ -3,6 +3,7 @@ package com.trialbot.feature_auth.data.remote
 import com.trialbot.feature_auth.data.model.LoginRequest
 import com.trialbot.feature_auth.data.model.LoginResponse
 import com.trialbot.feature_auth.data.model.RegisterRequest
+import com.trialbot.feature_auth.data.model.RegisterResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -17,5 +18,5 @@ interface AuthDao {
     @POST("./auth/register")
     suspend fun register(
         @Body request: RegisterRequest
-    ) : Response<String>
+    ) : Response<RegisterResponse>
 }
