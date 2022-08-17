@@ -33,6 +33,16 @@ val Typography = Typography(
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp
     ),
+    h4 = TextStyle(
+        fontFamily = comfortaa,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
+    ),
+    h5 = TextStyle(
+        fontFamily = comfortaa,
+        fontWeight = FontWeight.Bold,
+        fontSize = 14.sp
+    ),
     body1 = TextStyle(
         fontFamily = poppins,
         fontWeight = FontWeight.Normal,

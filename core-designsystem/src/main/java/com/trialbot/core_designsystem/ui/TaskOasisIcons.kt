@@ -24,7 +24,7 @@ object TaskOasisIcons {
     val checkCircle = Icons.Default.CheckCircle
     val repeatCircle = R.drawable.ic_circle_replay
     val circleTarget = R.drawable.ic_circle_dot
-    val moreArrowDownExpanded = Icons.Default.ArrowDropDown
+    val moreArrowDownExpanded = R.drawable.ic_expanded
     val moreArrowRightCollapsed = R.drawable.ic_arrow_right
     val checkBoxUnchecked = R.drawable.ic_checkbox
     val checkBoxChecked = R.drawable.ic_checkbox_checked
