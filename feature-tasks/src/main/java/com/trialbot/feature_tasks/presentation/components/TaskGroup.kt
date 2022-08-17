@@ -1,10 +1,14 @@
 package com.trialbot.feature_tasks.presentation.components
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,6 +26,8 @@ import com.trialbot.core_utils.toStringFormatted
 import com.trialbot.feature_tasks.data.model.TaskShortDto
 import java.time.Instant
 
+const val EXPANDING_TRANSITION_DURATION = 300
+
 @Composable
 fun TaskGroup(
     title: String,
@@ -31,6 +37,27 @@ fun TaskGroup(
     modifier: Modifier = Modifier,
     tasks: List<TaskShortDto> = emptyList()
 ) {
+    val enterTransition = remember {
+        expandVertically(
+            expandFrom = Alignment.Top,
+            animationSpec = tween(EXPANDING_TRANSITION_DURATION)
+        ) + fadeIn(
+            initialAlpha = 0.3f,
+            animationSpec = tween(EXPANDING_TRANSITION_DURATION)
+        )
+    }
+    val exitTransition = remember {
+        shrinkVertically(
+            // Expand from the top.
+            shrinkTowards = Alignment.Top,
+            animationSpec = tween(EXPANDING_TRANSITION_DURATION)
+        ) + fadeOut(
+            // Fade in with the initial alpha of 0.3f.
+            animationSpec = tween(EXPANDING_TRANSITION_DURATION)
+        )
+    }
+
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -75,7 +102,11 @@ fun TaskGroup(
             }
         }
 
-        if (tasks.isNotEmpty() && isExpanded) {
+        AnimatedVisibility(
+            visible = tasks.isNotEmpty() && isExpanded,
+            enter = enterTransition,
+            exit = exitTransition
+        ) {
             Surface(color = MaterialTheme.colors.surface) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -146,6 +177,9 @@ fun TaskGroupPreview() {
         )
     )
 
+    val isExpanded = remember {
+        mutableStateOf(false)
+    }
 
 
     TaskOasisTheme {
@@ -157,8 +191,8 @@ fun TaskGroupPreview() {
             TaskGroup(
                 title = "This week",
                 itemsCount = 4,
-                isExpanded = true,
-                onExpandButtonClick = {},
+                isExpanded = isExpanded.value,
+                onExpandButtonClick = { isExpanded.value = !isExpanded.value },
                 modifier = Modifier.padding(15.dp),
                 tasks = tasks
             )
