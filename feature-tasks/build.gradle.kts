@@ -44,6 +44,9 @@ dependencies {
     implementation(AndroidCore.lifecycleCore)
     implementation(AndroidCore.viewModel)
 
+    implementation(Accompanist.pager)
+    implementation(Accompanist.pager_indicators)
+
     implementation(Koin.core)
     implementation(Koin.android)
     implementation(Koin.compose)

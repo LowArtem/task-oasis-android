@@ -1,28 +1,75 @@
 package com.trialbot.feature_tasks.presentation.screens
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import com.google.accompanist.pager.*
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import kotlinx.coroutines.launch
 
+enum class TabItems(val title: String, val content: @Composable () -> Unit) {
+    LIST(
+        title = "List",
+        content = { ListTabView() }
+    ),
+    CALENDAR(
+        title = "Calendar",
+        content = { CalendarTabView() }
+    )
+}
+
+
+@OptIn(ExperimentalPagerApi::class)
 @RootNavGraph(start = true)
 @Destination
 @Composable
-fun TasksScreen(
+fun TasksScreen() {
+    val pagerState = rememberPagerState(0)
+    Surface(color = MaterialTheme.colors.background) {
+        Column {
+            Tabs(pagerState = pagerState)
+            TabsContent(pagerState = pagerState)
+        }
+    }
+}
 
-) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun Tabs(pagerState: PagerState) {
+    val scope = rememberCoroutineScope()
+
+    TabRow(
+        selectedTabIndex = pagerState.currentPage,
+        backgroundColor = MaterialTheme.colors.background,
+        indicator = { tabPositions ->
+            TabRowDefaults.Indicator(Modifier.pagerTabIndicatorOffset(pagerState, tabPositions))
+        }
     ) {
-        Text(
-            text = "Tasks Screen",
-            textAlign = TextAlign.Center
-        )
+        TabItems.values().forEachIndexed { index, tabItem ->
+            Tab(
+                selected = pagerState.currentPage == index,
+                onClick = {
+                    scope.launch {
+                        pagerState.animateScrollToPage(index)
+                    }
+                },
+                text = { Text(
+                    text = tabItem.title,
+                    style = MaterialTheme.typography.h3,
+                    color = MaterialTheme.colors.secondary
+                ) }
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun TabsContent(pagerState: PagerState) {
+    HorizontalPager(count = TabItems.values().size, state = pagerState) { pageIndex ->
+        TabItems.values()[pageIndex].content()
     }
 }

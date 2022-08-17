@@ -128,6 +128,7 @@ object Glide {
 
 object Accompanist {
     const val pager = "com.google.accompanist:accompanist-pager:${Versions.accompanistCore}"
+    const val pager_indicators = "com.google.accompanist:accompanist-pager-indicators:${Versions.accompanistCore}"
     const val placeholder = "com.google.accompanist:accompanist-placeholder-material:${Versions.accompanistCore}"
     const val swipeToRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistCore}"
     const val systemUiController = "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanistCore}"
