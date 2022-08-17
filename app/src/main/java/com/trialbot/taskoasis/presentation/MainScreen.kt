@@ -24,7 +24,7 @@ fun MainScreen(
     isUserLoggedIn: Boolean = false
 ) {
     val navController = rememberNavController()
-    val startMainDestination: NavGraphSpec = HomeNavGraph // TODO: получать это из настроек (пользователь может выбрать стартовый экран)
+    val startMainDestination: NavGraphSpec = TasksNavGraph // TODO: получать это из настроек (пользователь может выбрать стартовый экран)
 
     if (isUserLoggedIn) {
         Scaffold(

@@ -41,7 +41,7 @@ fun AppTopBar(
                 )
             }
         },
-        modifier = Modifier.padding(horizontal = 24.dp),
+        modifier = Modifier.padding(horizontal = 12.dp),
         elevation = 0.dp
     )
 }
