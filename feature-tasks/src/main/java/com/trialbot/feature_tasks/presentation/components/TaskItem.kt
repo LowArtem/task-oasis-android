@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -66,7 +67,8 @@ fun TaskItem(
                     text = text,
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.body1,
-                    color = MaterialTheme.colors.onSurface,
+                    color = if (!isChecked) MaterialTheme.colors.onSurface else MaterialTheme.colors.disabledColor,
+                    textDecoration = if (!isChecked) null else TextDecoration.LineThrough,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(start = 10.dp)
@@ -86,7 +88,7 @@ fun TaskItem(
                         modifier = Modifier
                             .size(16.dp, 16.dp)
                             .padding(end = 2.dp),
-                        tint = MaterialTheme.colors.infoColor
+                        tint = if (!isChecked) MaterialTheme.colors.infoColor else MaterialTheme.colors.disabledColor
                     )
                 }
                 if (hasRepeat) {
@@ -96,7 +98,7 @@ fun TaskItem(
                         modifier = Modifier
                             .size(16.dp, 16.dp)
                             .padding(end = 2.dp),
-                        tint = MaterialTheme.colors.infoColor
+                        tint = if (!isChecked) MaterialTheme.colors.infoColor else MaterialTheme.colors.disabledColor
                     )
                 }
                 if (deadline != null) {
@@ -105,7 +107,8 @@ fun TaskItem(
                         maxLines = 1,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.subtitle1,
-                        color = MaterialTheme.colors.infoColor,
+                        color = if (!isChecked) MaterialTheme.colors.infoColor else MaterialTheme.colors.disabledColor,
+                        textDecoration = if (!isChecked) null else TextDecoration.LineThrough,
                         modifier = Modifier.padding(end = 2.dp),
                     )
                 }
