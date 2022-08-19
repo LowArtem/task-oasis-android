@@ -46,6 +46,7 @@ dependencies {
 
     implementation(Accompanist.pager)
     implementation(Accompanist.pager_indicators)
+    implementation(Accompanist.swipeToRefresh)
 
     implementation(Koin.core)
     implementation(Koin.android)

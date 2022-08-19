@@ -42,7 +42,7 @@ object Versions {
     const val glide = "4.13.2"
 
     // Accompanist
-    const val accompanistCore = "0.25.0"
+    const val accompanistCore = "0.25.1"
 
     // Test
     const val jUnit = "4.13.2"
