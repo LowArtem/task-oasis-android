@@ -36,7 +36,7 @@ val dataModule = module {
 
     single {
         GsonBuilder()
-            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .create()
     }
 
