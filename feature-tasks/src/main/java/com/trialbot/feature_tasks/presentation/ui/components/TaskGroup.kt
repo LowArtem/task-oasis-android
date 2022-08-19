@@ -3,6 +3,7 @@ package com.trialbot.feature_tasks.presentation.ui.components
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -31,12 +32,12 @@ const val EXPANDING_TRANSITION_DURATION = 300
 @Composable
 fun TaskGroup(
     title: String,
-    onExpandButtonClick: () -> Unit,
     onSingleTaskClick: (taskId: Int) -> Unit,
     onSingleTaskCheckedChanged: (check: Boolean, taskId: Int) -> Unit,
-    isExpanded: Boolean = false,
     modifier: Modifier = Modifier,
-    tasks: List<TaskShortDto> = emptyList()
+    tasks: List<TaskShortDto> = emptyList(),
+    defaultExpanded: Boolean = false,
+    expandedStateChangedCallback: ((Boolean) -> Unit)? = null
 ) {
     val enterTransition = remember {
         expandVertically(
@@ -58,6 +59,19 @@ fun TaskGroup(
         )
     }
 
+    val expandedState = remember {
+        mutableStateOf(
+            if (tasks.isEmpty()) false else defaultExpanded
+        )
+    }
+    val onExpandClick: () -> Unit = {
+        expandedState.value = !expandedState.value
+
+        if (expandedStateChangedCallback != null) {
+            expandedStateChangedCallback(expandedState.value)
+        }
+    }
+
 
     Column(
         modifier = modifier
@@ -67,7 +81,10 @@ fun TaskGroup(
         Row(
             modifier = Modifier
                 .background(MaterialTheme.colors.surface)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .clickable {
+                    onExpandClick()
+                },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -90,21 +107,22 @@ fun TaskGroup(
                 )
             }
             IconButton(
-                onClick = onExpandButtonClick,
+                onClick = { onExpandClick() },
                 modifier = Modifier.padding(end = 10.dp)
             ) {
                 Icon(
                     painter = painterResource(
-                        id = if (isExpanded) TaskOasisIcons.moreArrowDownExpanded else TaskOasisIcons.moreArrowRightCollapsed
+                        id = if (expandedState.value) TaskOasisIcons.moreArrowDownExpanded else TaskOasisIcons.moreArrowRightCollapsed
                     ),
                     contentDescription = "Task group expand button",
-                    modifier = Modifier.size(30.dp, 30.dp)
+                    modifier = Modifier.size(30.dp, 30.dp),
+                    tint = MaterialTheme.colors.onPrimary
                 )
             }
         }
 
         AnimatedVisibility(
-            visible = tasks.isNotEmpty() && isExpanded,
+            visible = tasks.isNotEmpty() && expandedState.value,
             enter = enterTransition,
             exit = exitTransition
         ) {
@@ -189,10 +207,6 @@ fun TaskGroupPreview() {
         ).toMutableStateList()
     }
 
-    val isExpanded = remember {
-        mutableStateOf(false)
-    }
-
     TaskOasisTheme {
         Box(
             Modifier
@@ -201,8 +215,6 @@ fun TaskGroupPreview() {
         ) {
             TaskGroup(
                 title = "This week",
-                isExpanded = isExpanded.value,
-                onExpandButtonClick = { isExpanded.value = !isExpanded.value },
                 onSingleTaskClick = { },
                 onSingleTaskCheckedChanged = { check, taskId ->
                     val index = tasks.indexOfFirst { it.id == taskId }
