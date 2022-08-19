@@ -1,4 +1,4 @@
-package com.trialbot.feature_auth.presentation.states
+package com.trialbot.core_utils.states
 
 data class ErrorState(
     val message: String = "",
