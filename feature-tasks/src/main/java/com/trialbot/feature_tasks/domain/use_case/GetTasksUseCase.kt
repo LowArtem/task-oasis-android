@@ -7,7 +7,7 @@ import com.trialbot.core_utils.toLocalDateTimeCurrentZone
 import com.trialbot.feature_tasks.data.model.TaskShortDto
 import com.trialbot.feature_tasks.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.transform
 import java.util.*
 
 class GetTasksUseCase(
@@ -17,29 +17,35 @@ class GetTasksUseCase(
 
     private val uncompletedTasks = getUncompletedTasks()
 
-    fun getCompletedTasks(): Flow<Result<TaskShortDto>> {
+    fun getCompletedTasks(): Flow<Result<List<TaskShortDto>>> {
         return taskRepository.getCompletedTasks().asResult()
     }
 
-    fun getOverdueTasks(): Flow<Result<TaskShortDto>> {
+    fun getOverdueTasks(): Flow<Result<List<TaskShortDto>>> {
         val current = getCurrentTimeInstant.getCurrentTime()
 
-        return uncompletedTasks.filter {
-            (it.deadline ?: current) < current
+        return uncompletedTasks.transform {
+            emit(
+                it.filter { task -> (task.deadline ?: current) < current }
+            )
         }.asResult()
     }
 
-    fun getTodayTasks(): Flow<Result<TaskShortDto>> {
+    fun getTodayTasks(): Flow<Result<List<TaskShortDto>>> {
         val current = getCurrentTimeInstant.getCurrentTime().toLocalDateTimeCurrentZone()
 
-        return uncompletedTasks.filter {
-            it.deadline?.toLocalDateTimeCurrentZone()?.dayOfMonth == current.dayOfMonth &&
-            it.deadline.toLocalDateTimeCurrentZone().month == current.month &&
-            it.deadline.toLocalDateTimeCurrentZone().year == current.year
+        return uncompletedTasks.transform {
+            emit(
+                it.filter { task ->
+                    task.deadline?.toLocalDateTimeCurrentZone()?.dayOfMonth == current.dayOfMonth &&
+                            task.deadline.toLocalDateTimeCurrentZone().month == current.month &&
+                            task.deadline.toLocalDateTimeCurrentZone().year == current.year
+                }
+            )
         }.asResult()
     }
 
-    fun getWeekTasks(): Flow<Result<TaskShortDto>> {
+    fun getWeekTasks(): Flow<Result<List<TaskShortDto>>> {
         val calendar = Calendar.getInstance()
         calendar.firstDayOfWeek = Calendar.MONDAY
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
@@ -49,15 +55,20 @@ class GetTasksUseCase(
         calendar.set(Calendar.MILLISECOND, 0)
 
         val monday = calendar.time
-        val nextMonday = Date(monday.time + 7*24*60*60*1000)
+        val nextMonday = Date(monday.time + 7 * 24 * 60 * 60 * 1000)
 
-        return uncompletedTasks.filter {
-            it.deadline?.isAfter(monday.toInstant()) ?: false && it.deadline?.isBefore(nextMonday.toInstant()) ?: false
-                    && it.deadline?.toLocalDateTimeCurrentZone()?.dayOfMonth != getCurrentTimeInstant.getCurrentTime().toLocalDateTimeCurrentZone().dayOfMonth
+        return uncompletedTasks.transform {
+            emit(
+                it.filter { task ->
+                    task.deadline?.isAfter(monday.toInstant()) ?: false &&
+                            task.deadline?.isBefore(nextMonday.toInstant()) ?: false &&
+                            task.deadline?.toLocalDateTimeCurrentZone()?.dayOfMonth != getCurrentTimeInstant.getCurrentTime().toLocalDateTimeCurrentZone().dayOfMonth
+                }
+            )
         }.asResult()
     }
 
-    fun getLaterTasks(): Flow<Result<TaskShortDto>> {
+    fun getLaterTasks(): Flow<Result<List<TaskShortDto>>> {
         val calendar = Calendar.getInstance()
         calendar.firstDayOfWeek = Calendar.MONDAY
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
@@ -67,18 +78,26 @@ class GetTasksUseCase(
         calendar.set(Calendar.MILLISECOND, 0)
 
         val monday = calendar.time
-        val nextMonday = Date(monday.time + 7*24*60*60*1000 - 1000)
+        val nextMonday = Date(monday.time + 7 * 24 * 60 * 60 * 1000 - 1000)
 
-        return uncompletedTasks.filter {
-            it.deadline?.isAfter(nextMonday.toInstant()) ?: false
+        return uncompletedTasks.transform {
+            emit(
+                it.filter { task ->
+                    task.deadline?.isAfter(nextMonday.toInstant()) ?: false
+                }
+            )
         }.asResult()
     }
 
-    fun getNoDateTasks(): Flow<Result<TaskShortDto>> {
-        return uncompletedTasks.filter { it.deadline == null }.asResult()
+    fun getNoDateTasks(): Flow<Result<List<TaskShortDto>>> {
+        return uncompletedTasks.transform {
+            emit(
+                it.filter { task -> task.deadline == null }
+            )
+        }.asResult()
     }
 
-    private fun getUncompletedTasks(): Flow<TaskShortDto> {
+    private fun getUncompletedTasks(): Flow<List<TaskShortDto>> {
         return taskRepository.getUncompletedTasks()
     }
 }

@@ -13,21 +13,17 @@ class TaskRepositoryImpl(
     private val taskDao: TaskDao
 ) : TaskRepository {
 
-    override fun getCompletedTasks(): Flow<TaskShortDto> {
+    override fun getCompletedTasks(): Flow<List<TaskShortDto>> {
         return flow {
             val response = withRetry { taskDao.getCompletedTasks() }
-            response.bodyOrThrow().map { it.toDto() }.forEach {
-                emit(it)
-            }
+            emit(response.bodyOrThrow().map { it.toDto() })
         }
     }
 
-    override fun getUncompletedTasks(): Flow<TaskShortDto> {
+    override fun getUncompletedTasks(): Flow<List<TaskShortDto>> {
         return flow {
             val response = withRetry { taskDao.getUncompletedTasks() }
-            response.bodyOrThrow().map { it.toDto() }.forEach {
-                emit(it)
-            }
+            emit(response.bodyOrThrow().map { it.toDto() })
         }
     }
 }

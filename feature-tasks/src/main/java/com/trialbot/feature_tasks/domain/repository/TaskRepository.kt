@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface TaskRepository {
 
-    fun getCompletedTasks(): Flow<TaskShortDto>
+    fun getCompletedTasks(): Flow<List<TaskShortDto>>
 
-    fun getUncompletedTasks(): Flow<TaskShortDto>
+    fun getUncompletedTasks(): Flow<List<TaskShortDto>>
 }
