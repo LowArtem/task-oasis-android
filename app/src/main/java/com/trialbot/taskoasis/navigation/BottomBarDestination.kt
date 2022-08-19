@@ -6,7 +6,7 @@ import com.trialbot.core_designsystem.ui.TaskOasisIcons
 import com.trialbot.feature_habits.presentation.screens.destinations.HabitsScreenDestination
 import com.trialbot.feature_home.presentation.screens.destinations.HomeScreenDestination
 import com.trialbot.feature_profile.presentation.screens.destinations.ProfileScreenDestination
-import com.trialbot.feature_tasks.presentation.screens.destinations.TasksScreenDestination
+import com.trialbot.feature_tasks.presentation.ui.screens.destinations.TasksScreenDestination
 
 enum class BottomBarDestination(
     val direction: DirectionDestinationSpec,

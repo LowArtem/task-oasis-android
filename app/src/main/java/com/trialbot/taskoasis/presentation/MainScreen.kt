@@ -12,8 +12,7 @@ import com.ramcosta.composedestinations.navigation.dependency
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
 import com.trialbot.feature_auth.presentation.ui.screens.AuthNavGraph
-import com.trialbot.feature_home.presentation.screens.HomeNavGraph
-import com.trialbot.feature_tasks.presentation.screens.TasksNavGraph
+import com.trialbot.feature_tasks.presentation.ui.screens.TasksNavGraph
 import com.trialbot.taskoasis.navigation.RootNavigator
 import com.trialbot.taskoasis.presentation.components.AppBottomNavBar
 import com.trialbot.taskoasis.presentation.components.AppTopBar
