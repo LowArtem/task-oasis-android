@@ -86,6 +86,9 @@ class ListTabViewModel(
             is TaskEvent.OpenedTask -> {
                 // TODO
             }
+            is TaskEvent.RefreshedTasks -> {
+                // TODO
+            }
         }
     }
 }
