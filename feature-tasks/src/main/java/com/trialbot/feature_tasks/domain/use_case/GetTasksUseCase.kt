@@ -15,7 +15,11 @@ class GetTasksUseCase(
     private val getCurrentTimeInstant: GetCurrentTimeInstant
 ) {
 
-    private val uncompletedTasks = getUncompletedTasks()
+    private var uncompletedTasks: Flow<List<TaskShortDto>>
+
+    init {
+        uncompletedTasks = getUncompletedTasks()
+    }
 
     fun getCompletedTasks(): Flow<Result<List<TaskShortDto>>> {
         return taskRepository.getCompletedTasks().asResult()
