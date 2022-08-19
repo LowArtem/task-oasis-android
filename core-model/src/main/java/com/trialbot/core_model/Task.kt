@@ -14,6 +14,7 @@ data class Task(
     val description: String?,
     val repeatingInterval: RepeatingInterval,
     val notification: Instant?,
+    val completionDate: Instant?,
     val id: Int?,
     val subtasks: Set<Subtask>
 )
