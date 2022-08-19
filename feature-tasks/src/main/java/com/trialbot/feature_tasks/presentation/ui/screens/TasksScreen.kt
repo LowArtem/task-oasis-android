@@ -1,4 +1,4 @@
-package com.trialbot.feature_tasks.presentation.screens
+package com.trialbot.feature_tasks.presentation.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*

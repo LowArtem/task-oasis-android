@@ -1,4 +1,4 @@
-package com.trialbot.feature_tasks.presentation.screens
+package com.trialbot.feature_tasks.presentation.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,13 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 
 @Composable
-fun ListTabView() {
+fun CalendarTabView() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "List tab",
+            text = "Calendar tab",
             textAlign = TextAlign.Center
         )
     }

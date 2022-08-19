@@ -1,4 +1,4 @@
-package com.trialbot.feature_tasks.presentation.components
+package com.trialbot.feature_tasks.presentation.ui.components
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -124,8 +124,8 @@ fun TaskGroup(
                             isChecked = task.status,
                             priority = task.priority,
                             deadline = task.deadline
-                                .toLocalDateTimeCurrentZone()
-                                .toStringFormatted(),
+                                ?.toLocalDateTimeCurrentZone()
+                                ?.toStringFormatted(),
                             hasNotification = task.hasNotification,
                             hasRepeat = task.hasRepeat
                         )
@@ -150,6 +150,7 @@ fun TaskGroupPreview() {
                 priority = Priority.IMPORTANT,
                 hasNotification = true,
                 hasRepeat = false,
+                completionDate = null,
                 id = 1
             ),
             TaskShortDto(
@@ -160,6 +161,7 @@ fun TaskGroupPreview() {
                 priority = Priority.NORMAL,
                 hasNotification = false,
                 hasRepeat = true,
+                completionDate = null,
                 id = 2
             ),
             TaskShortDto(
@@ -170,6 +172,7 @@ fun TaskGroupPreview() {
                 priority = Priority.LOW,
                 hasNotification = false,
                 hasRepeat = false,
+                completionDate = null,
                 id = 3
             ),
             TaskShortDto(
@@ -180,6 +183,7 @@ fun TaskGroupPreview() {
                 priority = Priority.LOW,
                 hasNotification = true,
                 hasRepeat = true,
+                completionDate = null,
                 id = 4
             )
         ).toMutableStateList()

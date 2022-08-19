@@ -1,4 +1,4 @@
-package com.trialbot.feature_tasks.presentation.components
+package com.trialbot.feature_tasks.presentation.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
