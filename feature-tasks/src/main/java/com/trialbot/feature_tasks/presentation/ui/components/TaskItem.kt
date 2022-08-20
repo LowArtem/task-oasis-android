@@ -45,7 +45,7 @@ fun TaskItem(
         ) {
             Row(
                 modifier = Modifier
-                    .padding(top = 10.dp, bottom = 10.dp)
+                    .padding(10.dp)
                     .weight(4f),
                 verticalAlignment = Alignment.CenterVertically
             ) {
