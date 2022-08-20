@@ -9,7 +9,7 @@ object MyColors {
     val AlmostBlack: Color = Color(0xFF313131)
     val DarkGray: Color = Color(0xFF424242)
     val DarkBrown: Color = Color(0xFF544037)
-    //val MiddleBrownVariant = Color(0xFF87674E)
+    val MiddleBrownVariant = Color(0xFF87674E)
     val LightBrown: Color = Color(0xFFE7B07A)
     val AlmostWhite: Color = Color(0xFFF0ECE3)
     val White: Color = Color(0xFFFFFFFF)
