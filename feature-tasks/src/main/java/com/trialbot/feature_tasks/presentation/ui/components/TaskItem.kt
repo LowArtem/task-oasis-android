@@ -1,14 +1,17 @@
 package com.trialbot.feature_tasks.presentation.ui.components
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -22,11 +25,13 @@ import com.trialbot.core_designsystem.ui.theme.disabledColor
 import com.trialbot.core_designsystem.ui.theme.infoColor
 import com.trialbot.core_model.enum.Priority
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskItem(
     text: String,
     onClick: () -> Unit,
     onCheckedChanged: (Boolean) -> Unit,
+    onSwipeToDelete: () -> Unit,
     modifier: Modifier = Modifier,
     isChecked: Boolean = false,
     priority: Priority = Priority.LOW,
@@ -34,86 +39,126 @@ fun TaskItem(
     hasNotification: Boolean = false,
     hasRepeat: Boolean = false
 ) {
-    Box(modifier = modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .background(MaterialTheme.colors.surface)
-                .fillMaxWidth()
-                .clickable { onClick() },
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+    val swipeState = rememberDismissState()
+    val swipeDirection = swipeState.dismissDirection
+    val isSwiped = swipeState.isDismissed(DismissDirection.EndToStart)
+
+    if (isSwiped && swipeDirection == DismissDirection.EndToStart) {
+        onSwipeToDelete()
+    }
+
+    val degrees by animateFloatAsState(
+        if (swipeState.targetValue == DismissValue.Default)
+            0f
+        else
+            -45f
+    )
+
+    SwipeToDismiss(
+        state = swipeState,
+        directions = setOf(DismissDirection.EndToStart),
+        dismissThresholds = { FractionalThreshold(fraction = 0.4f) },
+        background = { SwipeBackground(degrees = degrees) }
+    ) {
+        Box(modifier = modifier.fillMaxWidth()) {
             Row(
                 modifier = Modifier
-                    .padding(10.dp)
-                    .weight(4f),
+                    .background(MaterialTheme.colors.surface)
+                    .fillMaxWidth()
+                    .clickable { onClick() },
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Checkbox(
-                    checked = isChecked,
-                    onCheckedChange = onCheckedChanged,
-                    modifier = Modifier.size(32.dp, 32.dp),
-                    colors = CheckboxDefaults.colors(
-                        checkedColor = MaterialTheme.colors.disabledColor,
-                        uncheckedColor = when (priority) {
-                            Priority.LOW -> MaterialTheme.colors.onPrimary
-                            Priority.NORMAL -> MaterialTheme.colors.attentionColor
-                            Priority.IMPORTANT -> MaterialTheme.colors.error
-                        },
-                        disabledColor = MaterialTheme.colors.disabledColor
+                Row(
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .weight(4f),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(
+                        checked = isChecked,
+                        onCheckedChange = onCheckedChanged,
+                        modifier = Modifier.size(32.dp, 32.dp),
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = MaterialTheme.colors.disabledColor,
+                            uncheckedColor = when (priority) {
+                                Priority.LOW -> MaterialTheme.colors.onPrimary
+                                Priority.NORMAL -> MaterialTheme.colors.attentionColor
+                                Priority.IMPORTANT -> MaterialTheme.colors.error
+                            },
+                            disabledColor = MaterialTheme.colors.disabledColor
+                        )
                     )
-                )
-                Text(
-                    text = text,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.body1,
-                    color = if (!isChecked) MaterialTheme.colors.onSurface else MaterialTheme.colors.disabledColor,
-                    textDecoration = if (!isChecked) null else TextDecoration.LineThrough,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(start = 10.dp)
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .weight(1f),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End
-            ) {
-                if (hasNotification) {
-                    Icon(
-                        painter = painterResource(id = TaskOasisIcons.alarm),
-                        contentDescription = "has alarm",
-                        modifier = Modifier
-                            .size(16.dp, 16.dp)
-                            .padding(end = 2.dp),
-                        tint = if (!isChecked) MaterialTheme.colors.infoColor else MaterialTheme.colors.disabledColor
-                    )
-                }
-                if (hasRepeat) {
-                    Icon(
-                        painter = painterResource(id = TaskOasisIcons.repeat),
-                        contentDescription = "has repeat",
-                        modifier = Modifier
-                            .size(16.dp, 16.dp)
-                            .padding(end = 2.dp),
-                        tint = if (!isChecked) MaterialTheme.colors.infoColor else MaterialTheme.colors.disabledColor
-                    )
-                }
-                if (deadline != null) {
                     Text(
-                        text = deadline,
-                        maxLines = 1,
+                        text = text,
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.subtitle1,
-                        color = if (!isChecked) MaterialTheme.colors.infoColor else MaterialTheme.colors.disabledColor,
+                        style = MaterialTheme.typography.body1,
+                        color = if (!isChecked) MaterialTheme.colors.onSurface else MaterialTheme.colors.disabledColor,
                         textDecoration = if (!isChecked) null else TextDecoration.LineThrough,
-                        modifier = Modifier.padding(end = 2.dp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(start = 10.dp)
                     )
+                }
+                Row(
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    if (hasNotification) {
+                        Icon(
+                            painter = painterResource(id = TaskOasisIcons.alarm),
+                            contentDescription = "has alarm",
+                            modifier = Modifier
+                                .size(16.dp, 16.dp)
+                                .padding(end = 2.dp),
+                            tint = if (!isChecked) MaterialTheme.colors.infoColor else MaterialTheme.colors.disabledColor
+                        )
+                    }
+                    if (hasRepeat) {
+                        Icon(
+                            painter = painterResource(id = TaskOasisIcons.repeat),
+                            contentDescription = "has repeat",
+                            modifier = Modifier
+                                .size(16.dp, 16.dp)
+                                .padding(end = 2.dp),
+                            tint = if (!isChecked) MaterialTheme.colors.infoColor else MaterialTheme.colors.disabledColor
+                        )
+                    }
+                    if (deadline != null) {
+                        Text(
+                            text = deadline,
+                            maxLines = 1,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.subtitle1,
+                            color = if (!isChecked) MaterialTheme.colors.infoColor else MaterialTheme.colors.disabledColor,
+                            textDecoration = if (!isChecked) null else TextDecoration.LineThrough,
+                            modifier = Modifier.padding(end = 2.dp),
+                        )
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+fun SwipeBackground(degrees: Float) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.error)
+            .padding(horizontal = 24.dp),
+        contentAlignment = Alignment.CenterEnd
+    ) {
+        Icon(
+            imageVector = TaskOasisIcons.deleteIcon,
+            contentDescription = "Delete task icon",
+            tint = MaterialTheme.colors.onError,
+            modifier = Modifier.rotate(degrees)
+        )
     }
 }
 
@@ -135,6 +180,7 @@ fun TaskItemPreview() {
                 text = "Start to code this android app app",
                 onClick = { /*TODO*/ },
                 onCheckedChanged = { isChecked.value = it },
+                onSwipeToDelete = { },
                 isChecked = isChecked.value,
                 priority = Priority.NORMAL,
                 hasRepeat = true,

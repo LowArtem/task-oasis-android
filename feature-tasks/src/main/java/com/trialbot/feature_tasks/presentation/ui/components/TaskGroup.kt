@@ -40,6 +40,7 @@ fun TaskGroups(
     groups: List<TaskGroup>,
     onSingleTaskClick: (taskId: Int) -> Unit,
     onSingleTaskCheckedChanged: (check: Boolean, groupIndex: Int, taskId: Int) -> Unit,
+    onTaskDelete: (taskId: Int) -> Unit,
     onErrorOccurred: (Throwable) -> Unit,
     modifier: Modifier = Modifier,
     defaultExpandedList: List<Boolean>? = null,
@@ -134,6 +135,9 @@ fun TaskGroups(
                                     onClick = { onSingleTaskClick(task.id) },
                                     onCheckedChanged = {
                                         onSingleTaskCheckedChanged(it, i, task.id)
+                                    },
+                                    onSwipeToDelete = {
+                                        onTaskDelete(task.id)
                                     },
                                     isChecked = task.status,
                                     priority = task.priority,
@@ -305,6 +309,7 @@ fun TaskGroupPreview() {
                 groups = taskGroups,
                 onSingleTaskClick = {},
                 onSingleTaskCheckedChanged = { _, _, _ -> },
+                onTaskDelete = { },
                 onErrorOccurred = {},
                 modifier = Modifier.padding(15.dp),
                 defaultExpandedList = listOf(true, false, false)
