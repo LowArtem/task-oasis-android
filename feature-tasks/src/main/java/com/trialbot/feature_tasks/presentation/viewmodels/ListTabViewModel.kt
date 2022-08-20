@@ -86,7 +86,13 @@ class ListTabViewModel(
             is TaskEvent.OpenedTask -> {
                 // TODO
             }
+            is TaskEvent.DeletedTask -> {
+                // TODO
+            }
             is TaskEvent.RefreshedTasks -> {
+                // TODO
+            }
+            is TaskEvent.OccurredError -> {
                 // TODO
             }
         }
