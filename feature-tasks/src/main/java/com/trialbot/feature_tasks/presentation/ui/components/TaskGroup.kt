@@ -43,7 +43,8 @@ fun TaskGroups(
     onErrorOccurred: (Throwable) -> Unit,
     modifier: Modifier = Modifier,
     defaultExpandedList: List<Boolean>? = null,
-    onExpandedStateChangedCallback: ((expanded: Boolean, groupIndex: Int) -> Unit)? = null
+    onExpandedStateChangedCallback: ((expanded: Boolean, groupIndex: Int) -> Unit)? = null,
+    placeholderContent: (@Composable () -> Unit)? = null
 ) {
     val enterTransition = remember {
         expandVertically(
@@ -74,6 +75,9 @@ fun TaskGroups(
         }
     }
 
+    var emptyGroupCount = remember(groups) { 0 }
+    var isLoadingVisible = remember(groups) { false }
+
     LazyColumn(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -82,59 +86,80 @@ fun TaskGroups(
     ) {
         groups.forEachIndexed { i, group ->
             val expanded = expandedStates[i]
-            item(key = "header_$i") {
-                TaskGroupHeader(
-                    title = group.title,
-                    tasksSize = if (group.tasks !is Result.Success) 0 else group.tasks.data.size,
-                    expandedState = expanded,
-                    expandedStateChanged = {
-                        expandedStates[i] = !expanded
 
-                        if (onExpandedStateChangedCallback != null) {
-                            onExpandedStateChangedCallback(expandedStates[i], i)
-                        }
-                    }
-                )
-            }
             when (group.tasks) {
                 is Result.Error -> {
+                    isLoadingVisible = false
+
                     onErrorOccurred(
                         group.tasks.exception ?: RuntimeException("Task result is error")
                     )
                 }
                 is Result.Loading -> {
                     item {
-                        LoadingIndicator()
-                    }
-                }
-                is Result.Success -> {
-                    items(group.tasks.data, key = { task -> "group_${i}_${task.id}" }) { task ->
-                        AnimatedVisibility(
-                            visible = group.tasks.data.isNotEmpty() && expanded,
-                            enter = enterTransition,
-                            exit = exitTransition
-                        ) {
-                            TaskItem(
-                                text = task.name,
-                                onClick = { onSingleTaskClick(task.id) },
-                                onCheckedChanged = {
-                                    onSingleTaskCheckedChanged(it, i, task.id)
-                                },
-                                isChecked = task.status,
-                                priority = task.priority,
-                                deadline = task.deadline
-                                    ?.toLocalDateTimeCurrentZone()
-                                    ?.toStringFormatted(),
-                                hasNotification = task.hasNotification,
-                                hasRepeat = task.hasRepeat,
-                                modifier = Modifier
-                            )
+                        if (!isLoadingVisible) {
+                            isLoadingVisible = true
+                            LoadingIndicator()
                         }
                     }
                 }
+                is Result.Success -> {
+                    isLoadingVisible = false
+
+                    if (group.tasks.data.isNotEmpty()) {
+
+                        item(key = "header_$i") {
+                            TaskGroupHeader(
+                                title = group.title,
+                                tasksSize = group.tasks.data.size,
+                                expandedState = expanded,
+                                expandedStateChanged = {
+                                    expandedStates[i] = !expanded
+
+                                    if (onExpandedStateChangedCallback != null) {
+                                        onExpandedStateChangedCallback(expandedStates[i], i)
+                                    }
+                                }
+                            )
+                        }
+
+                        items(group.tasks.data, key = { task -> "group_${i}_${task.id}" }) { task ->
+                            AnimatedVisibility(
+                                visible = group.tasks.data.isNotEmpty() && expanded,
+                                enter = enterTransition,
+                                exit = exitTransition
+                            ) {
+                                TaskItem(
+                                    text = task.name,
+                                    onClick = { onSingleTaskClick(task.id) },
+                                    onCheckedChanged = {
+                                        onSingleTaskCheckedChanged(it, i, task.id)
+                                    },
+                                    isChecked = task.status,
+                                    priority = task.priority,
+                                    deadline = task.deadline
+                                        ?.toLocalDateTimeCurrentZone()
+                                        ?.toStringFormatted(),
+                                    hasNotification = task.hasNotification,
+                                    hasRepeat = task.hasRepeat,
+                                    modifier = Modifier
+                                )
+                            }
+                        }
+
+                        item {
+                            Spacer(modifier = Modifier.height(15.dp))
+                        }
+                    } else {
+                        emptyGroupCount += 1
+                    }
+                }
             }
+        }
+
+        if (emptyGroupCount == groups.size && placeholderContent != null) {
             item {
-                Spacer(modifier = Modifier.height(15.dp))
+                placeholderContent()
             }
         }
     }
@@ -186,7 +211,7 @@ fun TaskGroupHeader(
                 ),
                 contentDescription = "Task group expand button",
                 modifier = Modifier.size(30.dp, 30.dp),
-                tint = MaterialTheme.colors.onPrimary
+                tint = MaterialTheme.colors.onSurface
             )
         }
     }
