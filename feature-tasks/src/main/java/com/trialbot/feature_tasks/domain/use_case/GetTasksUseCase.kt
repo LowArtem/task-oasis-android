@@ -22,7 +22,13 @@ class GetTasksUseCase(
     }
 
     fun getCompletedTasks(): Flow<Result<List<TaskShortDto>>> {
-        return taskRepository.getCompletedTasks().asResult()
+        return taskRepository.getCompletedTasks()
+            .transform {
+                emit(
+                    it.sortedByDescending { task -> task.completionDate }
+                )
+            }
+            .asResult()
     }
 
     fun getOverdueTasks(): Flow<Result<List<TaskShortDto>>> {
