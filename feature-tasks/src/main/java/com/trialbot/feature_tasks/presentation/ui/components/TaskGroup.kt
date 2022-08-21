@@ -20,12 +20,12 @@ import androidx.compose.ui.unit.dp
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
 import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
 import com.trialbot.core_designsystem.ui.theme.disabledColor
+import com.trialbot.core_model.TaskShortDto
 import com.trialbot.core_model.enum.Difficulty
 import com.trialbot.core_model.enum.Priority
 import com.trialbot.core_utils.Result
 import com.trialbot.core_utils.toLocalDateTimeCurrentZone
 import com.trialbot.core_utils.toStringFormatted
-import com.trialbot.feature_tasks.data.model.TaskShortDto
 import java.time.Instant
 
 const val EXPANDING_TRANSITION_DURATION = 200

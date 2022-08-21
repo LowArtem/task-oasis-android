@@ -1,9 +1,9 @@
 package com.trialbot.feature_tasks.data.model
 
+import com.trialbot.core_model.TaskShortDto
 import com.trialbot.core_model.enum.Difficulty
 import com.trialbot.core_model.enum.Priority
-import java.time.Instant
-import java.util.Date
+import java.util.*
 
 data class TaskShortResponse(
     val name: String,
@@ -14,18 +14,6 @@ data class TaskShortResponse(
     val hasNotification: Boolean,
     val hasRepeat: Boolean,
     val completionDate: Date?,
-    val id: Int
-)
-
-data class TaskShortDto(
-    val name: String,
-    val deadline: Instant?,
-    val status: Boolean,
-    val difficulty: Difficulty,
-    val priority: Priority,
-    val hasNotification: Boolean,
-    val hasRepeat: Boolean,
-    val completionDate: Instant?,
     val id: Int
 )
 

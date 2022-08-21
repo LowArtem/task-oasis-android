@@ -1,10 +1,10 @@
 package com.trialbot.feature_tasks.domain.use_case
 
+import com.trialbot.core_model.TaskShortDto
 import com.trialbot.core_utils.GetCurrentTimeInstant
 import com.trialbot.core_utils.Result
 import com.trialbot.core_utils.asResult
 import com.trialbot.core_utils.toLocalDateTimeCurrentZone
-import com.trialbot.feature_tasks.data.model.TaskShortDto
 import com.trialbot.feature_tasks.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.transform
@@ -48,8 +48,8 @@ class GetTasksUseCase(
             emit(
                 it.filter { task ->
                     task.deadline?.toLocalDateTimeCurrentZone()?.dayOfMonth == current.dayOfMonth &&
-                            task.deadline.toLocalDateTimeCurrentZone().month == current.month &&
-                            task.deadline.toLocalDateTimeCurrentZone().year == current.year
+                            task.deadline?.toLocalDateTimeCurrentZone()?.month == current.month &&
+                            task.deadline?.toLocalDateTimeCurrentZone()?.year == current.year
                 }
             )
         }.asResult()

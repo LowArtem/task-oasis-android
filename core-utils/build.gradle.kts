@@ -14,4 +14,6 @@ dependencies {
 
     implementation(Retrofit.core)
     implementation(Retrofit.okHttpCore)
+
+    implementation(project(Modules.model))
 }

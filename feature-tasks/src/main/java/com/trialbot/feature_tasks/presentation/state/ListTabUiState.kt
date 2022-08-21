@@ -1,7 +1,7 @@
 package com.trialbot.feature_tasks.presentation.state
 
+import com.trialbot.core_model.TaskShortDto
 import com.trialbot.core_utils.Result
-import com.trialbot.feature_tasks.data.model.TaskShortDto
 
 data class ListTabUiState(
     val completedTasks: Result<List<TaskShortDto>>,

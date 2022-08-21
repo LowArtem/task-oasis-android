@@ -2,9 +2,9 @@ package com.trialbot.feature_tasks.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.trialbot.feature_tasks.data.model.TaskShortDto
-import com.trialbot.feature_tasks.domain.use_case.GetTasksUseCase
+import com.trialbot.core_model.TaskShortDto
 import com.trialbot.core_utils.Result
+import com.trialbot.feature_tasks.domain.use_case.GetTasksUseCase
 import com.trialbot.feature_tasks.presentation.events.TaskEvent
 import com.trialbot.feature_tasks.presentation.events.UiEvent
 import com.trialbot.feature_tasks.presentation.state.ListTabUiState
