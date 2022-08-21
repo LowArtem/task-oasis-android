@@ -21,14 +21,14 @@ import com.trialbot.core_designsystem.ui.TaskOasisIcons
 import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
 import com.trialbot.core_designsystem.ui.theme.disabledColor
 import com.trialbot.core_model.TaskShortDto
+import com.trialbot.core_model.constants.Constants.EXPANDING_TRANSITION_DURATION
 import com.trialbot.core_model.enum.Difficulty
 import com.trialbot.core_model.enum.Priority
+import com.trialbot.core_uicomponents.components.LoadingIndicator
 import com.trialbot.core_utils.Result
 import com.trialbot.core_utils.toLocalDateTimeCurrentZone
 import com.trialbot.core_utils.toStringFormatted
 import java.time.Instant
-
-const val EXPANDING_TRANSITION_DURATION = 200
 
 data class TaskGroup(
     val title: String,
@@ -58,11 +58,9 @@ fun TaskGroups(
     }
     val exitTransition = remember {
         shrinkVertically(
-            // Expand from the top.
             shrinkTowards = Alignment.Top,
             animationSpec = tween(EXPANDING_TRANSITION_DURATION)
         ) + fadeOut(
-            // Fade in with the initial alpha of 0.3f.
             animationSpec = tween(EXPANDING_TRANSITION_DURATION)
         )
     }
@@ -218,17 +216,6 @@ fun TaskGroupHeader(
                 tint = MaterialTheme.colors.onSurface
             )
         }
-    }
-}
-
-@Composable
-fun LoadingIndicator(modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .fillMaxSize()
-    ) {
-        CircularProgressIndicator(color = MaterialTheme.colors.primary)
     }
 }
 
