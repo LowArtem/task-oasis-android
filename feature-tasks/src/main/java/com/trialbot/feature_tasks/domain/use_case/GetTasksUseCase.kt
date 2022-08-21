@@ -49,7 +49,9 @@ class GetTasksUseCase(
                 it.filter { task ->
                     task.deadline?.toLocalDateTimeCurrentZone()?.dayOfMonth == current.dayOfMonth &&
                             task.deadline?.toLocalDateTimeCurrentZone()?.month == current.month &&
-                            task.deadline?.toLocalDateTimeCurrentZone()?.year == current.year
+                            task.deadline?.toLocalDateTimeCurrentZone()?.year == current.year &&
+                            (task.deadline?.toLocalDateTimeCurrentZone()?.hour ?: current.hour) >= current.hour &&
+                            (task.deadline?.toLocalDateTimeCurrentZone()?.minute ?: current.minute) >= current.minute
                 }
             )
         }.asResult()
