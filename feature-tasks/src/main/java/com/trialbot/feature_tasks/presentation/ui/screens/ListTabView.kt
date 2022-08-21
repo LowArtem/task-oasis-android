@@ -14,11 +14,11 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
+import com.trialbot.core_uicomponents.components.task.TaskGroupData
+import com.trialbot.core_uicomponents.components.task.TaskGroups
 import com.trialbot.feature_tasks.presentation.events.TaskEvent
 import com.trialbot.feature_tasks.presentation.events.UiEvent
 import com.trialbot.feature_tasks.presentation.state.ListTabUiState
-import com.trialbot.feature_tasks.presentation.ui.components.TaskGroup
-import com.trialbot.feature_tasks.presentation.ui.components.TaskGroups
 import com.trialbot.feature_tasks.presentation.viewmodels.ListTabViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -43,28 +43,28 @@ fun ListTabView(
         }
     }
 
-    val taskGroups = listOf(
-        TaskGroup(
+    val taskGroupData = listOf(
+        TaskGroupData(
             title = "Overdue",
             tasks = uiState.overdueTasks
         ),
-        TaskGroup(
+        TaskGroupData(
             title = "Today",
             tasks = uiState.todayTasks
         ),
-        TaskGroup(
+        TaskGroupData(
             title = "This week",
             tasks = uiState.weekTasks
         ),
-        TaskGroup(
+        TaskGroupData(
             title = "Later",
             tasks = uiState.laterTasks
         ),
-        TaskGroup(
+        TaskGroupData(
             title = "No date",
             tasks = uiState.noDateTasks
         ),
-        TaskGroup(
+        TaskGroupData(
             title = "Completed",
             tasks = uiState.completedTasks
         )
@@ -80,7 +80,7 @@ fun ListTabView(
         ) {
             TaskGroups(
                 modifier = Modifier.padding(15.dp),
-                groups = taskGroups,
+                groups = taskGroupData,
                 onSingleTaskClick = { viewModel.onEvent(TaskEvent.OpenedTask(it)) },
                 onSingleTaskCheckedChanged = { check, _, taskId ->
                     viewModel.onEvent(TaskEvent.ChangedTaskStatus(taskId, check))

@@ -1,4 +1,4 @@
-package com.trialbot.feature_tasks.presentation.ui.components
+package com.trialbot.core_uicomponents.components.task
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -30,14 +30,14 @@ import com.trialbot.core_utils.toLocalDateTimeCurrentZone
 import com.trialbot.core_utils.toStringFormatted
 import java.time.Instant
 
-data class TaskGroup(
+data class TaskGroupData(
     val title: String,
     val tasks: Result<List<TaskShortDto>>
 )
 
 @Composable
 fun TaskGroups(
-    groups: List<TaskGroup>,
+    groups: List<TaskGroupData>,
     onSingleTaskClick: (taskId: Int) -> Unit,
     onSingleTaskCheckedChanged: (check: Boolean, groupIndex: Int, taskId: Int) -> Unit,
     onTaskDelete: (taskId: Int) -> Unit,
@@ -271,16 +271,16 @@ fun TaskGroupPreview() {
         )
     )
 
-    val taskGroups = listOf(
-        TaskGroup(
+    val taskGroupData = listOf(
+        TaskGroupData(
             title = "Today",
             tasks = Result.Success(tasks)
         ),
-        TaskGroup(
+        TaskGroupData(
             title = "This week",
             tasks = Result.Success(tasks.map { it.copy() })
         ),
-        TaskGroup(
+        TaskGroupData(
             title = "Later",
             tasks = Result.Success(tasks.map { it.copy() })
         )
@@ -293,7 +293,7 @@ fun TaskGroupPreview() {
                 .background(MaterialTheme.colors.background)
         ) {
             TaskGroups(
-                groups = taskGroups,
+                groups = taskGroupData,
                 onSingleTaskClick = {},
                 onSingleTaskCheckedChanged = { _, _, _ -> },
                 onTaskDelete = { },

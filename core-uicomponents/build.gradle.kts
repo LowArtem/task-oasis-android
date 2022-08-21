@@ -40,4 +40,6 @@ dependencies {
     debugImplementation(Debug.composeUiTestManifest)
 
     implementation(project(Modules.designSystem))
+    implementation(project(Modules.model))
+    implementation(project(Modules.utils))
 }

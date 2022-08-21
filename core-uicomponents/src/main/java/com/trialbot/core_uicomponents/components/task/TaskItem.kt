@@ -1,4 +1,4 @@
-package com.trialbot.feature_tasks.presentation.ui.components
+package com.trialbot.core_uicomponents.components.task
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
