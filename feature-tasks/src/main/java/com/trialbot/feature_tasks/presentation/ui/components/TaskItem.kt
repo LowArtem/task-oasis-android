@@ -11,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -24,6 +23,7 @@ import com.trialbot.core_designsystem.ui.theme.attentionColor
 import com.trialbot.core_designsystem.ui.theme.disabledColor
 import com.trialbot.core_designsystem.ui.theme.infoColor
 import com.trialbot.core_model.enum.Priority
+import com.trialbot.core_uicomponents.components.SwipeBackground
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -57,7 +57,7 @@ fun TaskItem(
     SwipeToDismiss(
         state = swipeState,
         directions = setOf(DismissDirection.EndToStart),
-        dismissThresholds = { FractionalThreshold(fraction = 0.4f) },
+        dismissThresholds = { FractionalThreshold(fraction = 0.3f) },
         background = { SwipeBackground(degrees = degrees) }
     ) {
         Box(modifier = modifier.fillMaxWidth()) {
@@ -144,23 +144,6 @@ fun TaskItem(
     }
 }
 
-@Composable
-fun SwipeBackground(degrees: Float) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.error)
-            .padding(horizontal = 24.dp),
-        contentAlignment = Alignment.CenterEnd
-    ) {
-        Icon(
-            imageVector = TaskOasisIcons.deleteIcon,
-            contentDescription = "Delete task icon",
-            tint = MaterialTheme.colors.onError,
-            modifier = Modifier.rotate(degrees)
-        )
-    }
-}
 
 @Preview(device = "id:pixel_3_xl")
 @Composable
@@ -178,7 +161,7 @@ fun TaskItemPreview() {
         ) {
             TaskItem(
                 text = "Start to code this android app app",
-                onClick = { /*TODO*/ },
+                onClick = {  },
                 onCheckedChanged = { isChecked.value = it },
                 onSwipeToDelete = { },
                 isChecked = isChecked.value,
