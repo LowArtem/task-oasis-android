@@ -84,7 +84,9 @@ class ListTabViewModel(
                 // TODO
             }
             is TaskEvent.OpenedTask -> {
-                // TODO
+                viewModelScope.launch(coroutineExceptionHandler) {
+                    _uiEventsFlow.emit(UiEvent.NavigateToTaskEdit(event.taskId))
+                }
             }
             is TaskEvent.DeletedTask -> {
                 // TODO

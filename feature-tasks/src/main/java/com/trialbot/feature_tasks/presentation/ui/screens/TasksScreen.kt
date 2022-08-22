@@ -14,13 +14,15 @@ import kotlinx.coroutines.launch
 enum class TabItems(val title: String, val content: @Composable () -> Unit) {
     LIST(
         title = "List",
-        content = { ListTabView() }
+        content = { ListTabView(taskNavigator) }
     ),
     CALENDAR(
         title = "Calendar",
         content = { CalendarTabView() }
     )
 }
+
+lateinit var taskNavigator: TasksNavigator
 
 
 @OptIn(ExperimentalPagerApi::class)
@@ -30,6 +32,8 @@ enum class TabItems(val title: String, val content: @Composable () -> Unit) {
 fun TasksScreen(
     navigator: TasksNavigator
 ) {
+    taskNavigator = navigator
+
     val pagerState = rememberPagerState(0)
     Surface(color = MaterialTheme.colors.background) {
         Column {

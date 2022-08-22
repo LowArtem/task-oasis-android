@@ -16,6 +16,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
 import com.trialbot.core_uicomponents.components.task.TaskGroupData
 import com.trialbot.core_uicomponents.components.task.TaskGroups
+import com.trialbot.feature_tasks.TasksNavigator
 import com.trialbot.feature_tasks.presentation.events.TaskEvent
 import com.trialbot.feature_tasks.presentation.events.UiEvent
 import com.trialbot.feature_tasks.presentation.state.ListTabUiState
@@ -25,6 +26,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ListTabView(
+    navigator: TasksNavigator,
     viewModel: ListTabViewModel = koinViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -38,6 +40,9 @@ fun ListTabView(
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.message
                     )
+                }
+                is UiEvent.NavigateToTaskEdit -> {
+                    navigator.navigateToEdit(event.taskId)
                 }
             }
         }

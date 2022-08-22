@@ -10,4 +10,5 @@ sealed class TaskEvent {
 
 sealed class UiEvent {
     data class ShowShackbar(val message: String) : UiEvent()
+    data class NavigateToTaskEdit(val taskId: Int) : UiEvent()
 }

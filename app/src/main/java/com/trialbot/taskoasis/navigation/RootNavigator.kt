@@ -9,6 +9,7 @@ import com.trialbot.feature_auth.presentation.ui.screens.destinations.AuthDirect
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.LoginScreenDestination
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.RegisterScreenDestination
 import com.trialbot.feature_tasks.TasksNavigator
+import com.trialbot.feature_tasks.presentation.ui.screens.destinations.AddEditTaskScreenDestination
 import com.trialbot.taskoasis.presentation.destinations.MainScreenDestination
 
 class RootNavigator(
@@ -43,8 +44,8 @@ class RootNavigator(
         }
     }
 
-    override fun navigateToEdit() {
-        // TODO
+    override fun navigateToEdit(taskId: Int) {
+        navController.navigate(AddEditTaskScreenDestination(taskId))
     }
 
     override fun navigateUp() {
