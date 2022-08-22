@@ -6,19 +6,22 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.ramcosta.composedestinations.utils.currentDestinationAsState
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
 import com.trialbot.core_designsystem.ui.TaskOasisIcon
 import com.trialbot.taskoasis.navigation.BottomBarDestination
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun AppBottomNavBar(
-    navController: NavController
+    pagerState: PagerState
 ) {
-    val currentDestination = navController.currentDestinationAsState()
+    val scope = rememberCoroutineScope()
 
     BottomAppBar(
         backgroundColor = MaterialTheme.colors.background
@@ -26,14 +29,10 @@ fun AppBottomNavBar(
         BottomBarDestination.values().forEachIndexed { index, destination ->
             if (index != 2) {
                 BottomNavigationItem(
-                    selected = currentDestination.value == destination.direction,
+                    selected = pagerState.currentPage == index,
                     onClick = {
-                        navController.navigate(destination.direction.route) {
-                            popUpTo(currentDestination.value!!.route) {
-                                inclusive = true
-                            }
-
-                            launchSingleTop = true
+                        scope.launch {
+                            pagerState.scrollToPage(index)
                         }
                     },
                     icon = {

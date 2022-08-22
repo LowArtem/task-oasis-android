@@ -7,20 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.ramcosta.composedestinations.utils.currentDestinationAsState
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
-import com.trialbot.taskoasis.navigation.BottomBarDestination
 
 @Composable
 fun AppTopBar(
-    navController: NavController,
+    title: String,
     onNavDrawerButtonClick: () -> Unit
 ) {
-    val currentDestination = navController.currentDestinationAsState()
-    val title = (BottomBarDestination.values()
-        .find { it.direction == currentDestination.value } ?: BottomBarDestination.Home).screenName
-
     TopAppBar(
         title = {
             Text(

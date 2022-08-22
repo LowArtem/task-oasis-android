@@ -82,6 +82,8 @@ dependencies {
     implementation(Navigation.navigationDestination)
     ksp(Navigation.navigationKsp)
 
+    implementation(Accompanist.pager)
+
     testImplementation(TestDependencies.jUnit)
     androidTestImplementation(TestDependencies.jUnitExt)
     androidTestImplementation(TestDependencies.espressoCore)

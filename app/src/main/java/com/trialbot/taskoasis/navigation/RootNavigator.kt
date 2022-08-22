@@ -8,16 +8,17 @@ import com.trialbot.feature_auth.AuthNavigator
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.AuthDirectionDestination
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.LoginScreenDestination
 import com.trialbot.feature_auth.presentation.ui.screens.destinations.RegisterScreenDestination
+import com.trialbot.feature_tasks.TasksNavigator
 import com.trialbot.taskoasis.presentation.destinations.MainScreenDestination
 
 class RootNavigator(
     private val currentDestination: DestinationSpec<*>,
     private val navController: NavController
-) : AuthNavigator {
+) : AuthNavigator, TasksNavigator {
 
 
     override fun navigateHome() {
-        navController.navigate(MainScreenDestination(isUserLoggedIn = true)) {
+        navController.navigate(MainScreenDestination) {
             popUpTo(currentDestination) {
                 inclusive = true
             }
@@ -40,5 +41,13 @@ class RootNavigator(
             }
             launchSingleTop = true
         }
+    }
+
+    override fun navigateToEdit() {
+        // TODO
+    }
+
+    override fun navigateUp() {
+        navController.navigateUp()
     }
 }

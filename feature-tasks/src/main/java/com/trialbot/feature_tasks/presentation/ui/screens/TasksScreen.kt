@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import com.google.accompanist.pager.*
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.trialbot.feature_tasks.TasksNavigator
 import kotlinx.coroutines.launch
 
 enum class TabItems(val title: String, val content: @Composable () -> Unit) {
@@ -26,7 +27,9 @@ enum class TabItems(val title: String, val content: @Composable () -> Unit) {
 @RootNavGraph(start = true)
 @Destination
 @Composable
-fun TasksScreen() {
+fun TasksScreen(
+    navigator: TasksNavigator
+) {
     val pagerState = rememberPagerState(0)
     Surface(color = MaterialTheme.colors.background) {
         Column {
