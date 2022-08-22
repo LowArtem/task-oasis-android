@@ -25,6 +25,8 @@ import com.trialbot.core_designsystem.ui.theme.inputStrokeColor
  *
  * Important thing: you need to deal with [Modifier.sizeIn] instead of plain size.
  * You need to specify height as a minHeight and let it become a bit bigger to error text can be shown.
+ *
+ * @param isLabelAboveVisible don't use it as state, it is just start and immutable value
  */
 @Composable
 fun InputHintField(
@@ -36,6 +38,7 @@ fun InputHintField(
     error: String = "",
     isError: Boolean = error.isNotEmpty(),
     passwordVisibility: Boolean? = null,
+    isLabelAboveVisible: Boolean = true,
     trailingIcon: @Composable (() -> Unit)? = {
         if (isError)
             Icon(
@@ -45,15 +48,20 @@ fun InputHintField(
             )
     },
 ) {
-    OutlinedTextFieldValidation(
-        modifier = modifier,
-        value = value,
-        onValueChange = onValueChanged,
+    var label: (@Composable () -> Unit)? = null
+    if (isLabelAboveVisible) {
         label = {
             Text(
                 text = hint
             )
-        },
+        }
+    }
+
+    OutlinedTextFieldValidation(
+        modifier = modifier,
+        value = value,
+        onValueChange = onValueChanged,
+        label = label,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colors.onSurface,
             unfocusedLabelColor = MaterialTheme.colors.inputStrokeColor,
