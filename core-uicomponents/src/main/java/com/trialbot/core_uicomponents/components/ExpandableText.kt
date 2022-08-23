@@ -3,6 +3,7 @@ package com.trialbot.core_uicomponents.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -30,15 +31,17 @@ fun ExpandableText(
     textDecoration: TextDecoration? = null
 ) {
     Box(modifier = modifier) {
-        Text(
-            text = text,
-            maxLines = if (isExpanded) Int.MAX_VALUE else minimizedMaxLines,
-            style = style,
-            color = color,
-            textAlign = textAlign,
-            textDecoration = textDecoration,
-            overflow = TextOverflow.Ellipsis
-        )
+        SelectionContainer {
+            Text(
+                text = text,
+                maxLines = if (isExpanded) Int.MAX_VALUE else minimizedMaxLines,
+                style = style,
+                color = color,
+                textAlign = textAlign,
+                textDecoration = textDecoration,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
     }
 }
 
@@ -54,18 +57,20 @@ fun SelfExpandableText(
 ) {
     val expanded = remember { mutableStateOf(false) }
     Box(modifier = modifier) {
-        Text(
-            text = text,
-            maxLines = if (expanded.value) Int.MAX_VALUE else minimizedMaxLines,
-            style = style,
-            color = color,
-            textAlign = textAlign,
-            textDecoration = textDecoration,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.clickable {
-                expanded.value = !expanded.value
-            }
-        )
+        SelectionContainer {
+            Text(
+                text = text,
+                maxLines = if (expanded.value) Int.MAX_VALUE else minimizedMaxLines,
+                style = style,
+                color = color,
+                textAlign = textAlign,
+                textDecoration = textDecoration,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.clickable {
+                    expanded.value = !expanded.value
+                }
+            )
+        }
     }
 }
 

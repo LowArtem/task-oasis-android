@@ -47,7 +47,8 @@ fun InputLineField(
         value = value,
         placeholder = {
             Text(
-                text = placeholder
+                text = placeholder,
+                style = MaterialTheme.typography.body1
             )
         },
         onValueChange = onValueChanged,
@@ -62,7 +63,7 @@ fun InputLineField(
         error = error,
         isError = isError,
         textStyle = MaterialTheme.typography.body1,
-        singleLine = true,
+        singleLine = false,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         visualTransformation = if (passwordVisibility == null || passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
