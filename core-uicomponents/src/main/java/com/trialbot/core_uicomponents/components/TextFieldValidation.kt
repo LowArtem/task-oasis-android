@@ -8,6 +8,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -116,7 +118,8 @@ fun FilledTextFieldValidation(
     shape: Shape = MaterialTheme.shapes.small,
     colors: TextFieldColors = TextFieldDefaults.textFieldColors (
         disabledTextColor = MaterialTheme.colors.disabledColor
-    )
+    ),
+    focusRequester: FocusRequester = FocusRequester()
 ) {
     Column (modifier = modifier) {
         TextField(
@@ -125,7 +128,8 @@ fun FilledTextFieldValidation(
             value = value,
             onValueChange = onValueChange,
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .focusRequester(focusRequester),
             singleLine = singleLine,
             textStyle = textStyle,
             label = label,

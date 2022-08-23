@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -33,6 +34,7 @@ fun InputLineField(
     isError: Boolean = error.isNotEmpty(),
     passwordVisibility: Boolean? = null,
     backgroundColor: Color = MaterialTheme.colors.background,
+    focusRequester: FocusRequester = FocusRequester(),
     trailingIcon: @Composable (() -> Unit)? = {
         if (isError)
             Icon(
@@ -67,7 +69,8 @@ fun InputLineField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         visualTransformation = if (passwordVisibility == null || passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-        trailingIcon = trailingIcon
+        trailingIcon = trailingIcon,
+        focusRequester = focusRequester
     )
 }
 
