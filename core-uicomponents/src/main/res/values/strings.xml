@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_subtask_hint">Add a subtask</string>
+    <string name="enter_description_hint">Enter a description</string>
+</resources>

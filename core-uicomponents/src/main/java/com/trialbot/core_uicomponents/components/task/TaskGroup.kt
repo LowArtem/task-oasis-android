@@ -5,12 +5,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.toMutableStateList
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -32,18 +29,23 @@ import java.time.Instant
 
 data class TaskGroupData(
     val title: String,
-    val tasks: Result<List<TaskShortDto>>
+    val tasks: Result<List<TaskShortDto>>,
+    val isVisibleWhenEmpty: Boolean = false,
+    val isMutable: Boolean = false,
+    val areItemsExpandable: Boolean = false,
+    val isExpandedByDefault: Boolean = false
 )
 
 @Composable
 fun TaskGroups(
+    modifier: Modifier = Modifier,
     groups: List<TaskGroupData>,
-    onSingleTaskClick: (taskId: Int) -> Unit,
+    onSingleTaskClick: (taskId: Int, groupIndex: Int) -> Unit,
     onSingleTaskCheckedChanged: (check: Boolean, groupIndex: Int, taskId: Int) -> Unit,
     onTaskDelete: (taskId: Int) -> Unit,
     onErrorOccurred: (Throwable) -> Unit,
-    modifier: Modifier = Modifier,
-    defaultExpandedList: List<Boolean>? = null,
+    onNewItemAddedCallback: (groupIndex: Int, text: String) -> Unit,
+    onItemEditedCallback: (groupIndex: Int, taskId: Int, newText: String) -> Unit,
     onExpandedStateChangedCallback: ((expanded: Boolean, groupIndex: Int) -> Unit)? = null,
     placeholderContent: (@Composable () -> Unit)? = null
 ) {
@@ -66,12 +68,7 @@ fun TaskGroups(
     }
 
     val expandedStates = remember(groups) {
-        if (defaultExpandedList == null) {
-            List(groups.size) { false }.toMutableStateList()
-        } else {
-            require(defaultExpandedList.size == groups.size)
-            defaultExpandedList.toMutableStateList()
-        }
+        groups.map { it.isExpandedByDefault }.toMutableStateList()
     }
 
     var emptyGroupCount = remember(groups) { 0 }
@@ -105,7 +102,7 @@ fun TaskGroups(
                 is Result.Success -> {
                     isLoadingVisible = false
 
-                    if (group.tasks.data.isNotEmpty()) {
+                    if (group.tasks.data.isNotEmpty() || group.isVisibleWhenEmpty) {
 
                         item(key = "header_$i") {
                             TaskGroupHeader(
@@ -122,15 +119,27 @@ fun TaskGroups(
                             )
                         }
 
-                        items(group.tasks.data, key = { task -> "group_${i}_${task.id}" }) { task ->
+                        items (
+                            items = group.tasks.data,
+                            key = {task -> "group_${i}_${task.id}" }
+                        ) { task ->
                             AnimatedVisibility(
                                 visible = group.tasks.data.isNotEmpty() && expanded,
                                 enter = enterTransition,
                                 exit = exitTransition
                             ) {
+                                val isItemAdding = remember { mutableStateOf(false) }
+
+
                                 TaskItem(
                                     text = task.name,
-                                    onClick = { onSingleTaskClick(task.id) },
+                                    onClick = {
+                                        if (group.isMutable) {
+                                            isItemAdding.value = true
+                                        } else {
+                                            onSingleTaskClick(task.id, i)
+                                        }
+                                    },
                                     onCheckedChanged = {
                                         onSingleTaskCheckedChanged(it, i, task.id)
                                     },
@@ -144,8 +153,39 @@ fun TaskGroups(
                                         ?.toStringFormatted(),
                                     hasNotification = task.hasNotification,
                                     hasRepeat = task.hasRepeat,
-                                    modifier = Modifier
+                                    modifier = Modifier,
+                                    isExpandable = group.areItemsExpandable,
+                                    isAddingItem = isItemAdding.value,
+                                    defaultAddingItemState = true,
+                                    onItemAdded = {
+                                        onItemEditedCallback(i, task.id, it)
+                                        isItemAdding.value = false
+                                    }
                                 )
+                            }
+                        }
+
+                        if (group.isMutable) {
+                            item {
+                                val text = remember { mutableStateOf("") }
+
+                                AnimatedVisibility(
+                                    visible = expanded,
+                                    enter = enterTransition,
+                                    exit = exitTransition
+                                ) {
+                                    TaskItem(
+                                        text = text.value,
+                                        onClick = {},
+                                        onCheckedChanged = {},
+                                        onSwipeToDelete = {},
+                                        isAddingItem = true,
+                                        onItemAdded = {
+                                            onNewItemAddedCallback(i, it)
+                                        },
+                                        isExpandable = false
+                                    )
+                                }
                             }
                         }
 
@@ -168,7 +208,7 @@ fun TaskGroups(
 }
 
 @Composable
-fun TaskGroupHeader(
+private fun TaskGroupHeader(
     title: String,
     modifier: Modifier = Modifier,
     tasksSize: Int,
@@ -220,9 +260,9 @@ fun TaskGroupHeader(
 }
 
 
-@Preview(showBackground = false, device = "id:pixel_3_xl")
+@Preview(showBackground = true, device = "id:pixel_3_xl")
 @Composable
-fun TaskGroupPreview() {
+private fun TaskGroupPreview() {
 
     val tasks = mutableListOf(
         TaskShortDto(
@@ -269,12 +309,15 @@ fun TaskGroupPreview() {
             completionDate = null,
             id = 4
         )
-    )
+    ).toMutableStateList()
 
-    val taskGroupData = listOf(
+    val mutableTasks = mutableListOf<TaskShortDto>().toMutableStateList()
+
+    val taskGroupData = mutableListOf(
         TaskGroupData(
             title = "Today",
-            tasks = Result.Success(tasks)
+            tasks = Result.Success(tasks),
+            isExpandedByDefault = true
         ),
         TaskGroupData(
             title = "This week",
@@ -283,23 +326,52 @@ fun TaskGroupPreview() {
         TaskGroupData(
             title = "Later",
             tasks = Result.Success(tasks.map { it.copy() })
+        ),
+        TaskGroupData(
+            title = "Subtasks",
+            tasks = Result.Success(mutableTasks),
+            isVisibleWhenEmpty = true,
+            isMutable = true,
+            areItemsExpandable = true,
+            isExpandedByDefault = true
         )
-    )
+    ).toMutableStateList()
 
     TaskOasisTheme {
-        Column(
-            Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background)
+        Surface(
+            Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
         ) {
             TaskGroups(
                 groups = taskGroupData,
-                onSingleTaskClick = {},
+                onSingleTaskClick = { _, _ ->
+
+                },
                 onSingleTaskCheckedChanged = { _, _, _ -> },
                 onTaskDelete = { },
                 onErrorOccurred = {},
+                onNewItemAddedCallback = { _, text ->
+                    mutableTasks.add(
+                        TaskShortDto(
+                            name = text,
+                            deadline = null,
+                            status = false,
+                            difficulty = Difficulty.EASY,
+                            priority = Priority.LOW,
+                            hasNotification = false,
+                            hasRepeat = false,
+                            completionDate = null,
+                            id = if (mutableTasks.size == 0) 1 else mutableTasks.last().id + 1
+                        )
+                    )
+                },
+                onItemEditedCallback = { _, taskId, newText ->
+                    val itemIndex = mutableTasks.indexOf(mutableTasks.first { it.id == taskId })
+                    mutableTasks[itemIndex] = mutableTasks[itemIndex].copy(
+                        name = newText
+                    )
+                },
                 modifier = Modifier.padding(15.dp),
-                defaultExpandedList = listOf(true, false, false)
             )
         }
     }
