@@ -31,7 +31,7 @@ fun SwipeBackground(degrees: Float) {
         contentAlignment = Alignment.CenterEnd
     ) {
         Icon(
-            imageVector = TaskOasisIcons.deleteIcon,
+            imageVector = TaskOasisIcons.trashCan,
             contentDescription = "Delete element",
             tint = MaterialTheme.colors.onError,
             modifier = Modifier.rotate(degrees)

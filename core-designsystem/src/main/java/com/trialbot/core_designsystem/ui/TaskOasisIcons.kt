@@ -20,6 +20,7 @@ object TaskOasisIcons {
     val habit = R.drawable.ic_calendar_repeat
     val settings = Icons.Default.Settings
     val circleFilled = R.drawable.ic_circle_filled
+    val close = Icons.Default.Close
     val cancelCircle = R.drawable.ic_circle_cancel
     val checkCircle = Icons.Default.CheckCircle
     val repeatCircle = R.drawable.ic_circle_replay
@@ -39,7 +40,7 @@ object TaskOasisIcons {
     val errorCircle = R.drawable.ic_error
     val avatar = Icons.Default.Person
     val smileFace = R.drawable.ic_smiled_face
-    val deleteIcon = Icons.Default.Delete
+    val trashCan = Icons.Default.Delete
 }
 
 /**
