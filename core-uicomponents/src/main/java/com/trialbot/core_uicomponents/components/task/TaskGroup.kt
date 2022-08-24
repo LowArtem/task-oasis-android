@@ -24,7 +24,7 @@ import com.trialbot.core_model.enum.Priority
 import com.trialbot.core_uicomponents.components.LoadingIndicator
 import com.trialbot.core_utils.Result
 import com.trialbot.core_utils.toLocalDateTimeCurrentZone
-import com.trialbot.core_utils.toStringFormatted
+import com.trialbot.core_utils.toStringShortFormatted
 import java.time.Instant
 
 data class TaskGroupData(
@@ -150,7 +150,7 @@ fun TaskGroups(
                                     priority = task.priority,
                                     deadline = task.deadline
                                         ?.toLocalDateTimeCurrentZone()
-                                        ?.toStringFormatted(),
+                                        ?.toStringShortFormatted(),
                                     hasNotification = task.hasNotification,
                                     hasRepeat = task.hasRepeat,
                                     modifier = Modifier,
