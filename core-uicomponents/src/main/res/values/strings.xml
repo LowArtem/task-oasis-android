@@ -2,4 +2,5 @@
 <resources>
     <string name="add_subtask_hint">Add a subtask</string>
     <string name="enter_description_hint">Enter a description</string>
+    <string name="not_set">Not set</string>
 </resources>
