@@ -70,7 +70,7 @@ fun AppDatePicker(
     PickerForm(
         modifier = modifier,
         currentDateTime = pickedDate.value,
-        icon = TaskOasisIcon.DrawableResourceIcon(TaskOasisIcons.calendar),
+        icon = TaskOasisIcon.of(TaskOasisIcons.calendar),
         pickerType = PickerType.DATE,
         onClick = {
             datePickerDialog.show()
@@ -115,7 +115,7 @@ fun AppTimePicker(
     PickerForm(
         modifier = modifier,
         currentDateTime = if (pickedTime.value != null) LocalDateTime.of(LocalDate.now(), pickedTime.value) else null,
-        icon = TaskOasisIcon.DrawableResourceIcon(TaskOasisIcons.timeClock),
+        icon = TaskOasisIcon.of(TaskOasisIcons.timeClock),
         pickerType = PickerType.TIME,
         onClick = {
             timePickerDialog.show()

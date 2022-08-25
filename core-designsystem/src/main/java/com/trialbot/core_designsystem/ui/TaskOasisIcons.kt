@@ -49,4 +49,11 @@ object TaskOasisIcons {
 sealed class TaskOasisIcon {
     data class ImageVectorIcon(val imageVector: ImageVector) : TaskOasisIcon()
     data class DrawableResourceIcon(@DrawableRes val id: Int) : TaskOasisIcon()
+
+    companion object {
+        fun of(imageVector: ImageVector): TaskOasisIcon = TaskOasisIcon.ImageVectorIcon(imageVector)
+
+        fun of(@DrawableRes id: Int): TaskOasisIcon = TaskOasisIcon.DrawableResourceIcon(id)
+    }
 }
+

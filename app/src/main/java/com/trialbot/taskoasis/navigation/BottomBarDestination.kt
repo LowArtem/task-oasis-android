@@ -8,23 +8,23 @@ enum class BottomBarDestination(
     val screenName: String
 ) {
     Home(
-        icon = TaskOasisIcon.ImageVectorIcon(TaskOasisIcons.home),
+        icon = TaskOasisIcon.of(TaskOasisIcons.home),
         screenName = "Home"
     ),
     Tasks(
-        icon = TaskOasisIcon.DrawableResourceIcon(TaskOasisIcons.bulletedList),
+        icon = TaskOasisIcon.of(TaskOasisIcons.bulletedList),
         screenName = "Tasks"
     ),
     Empty(
-        icon = TaskOasisIcon.ImageVectorIcon(TaskOasisIcons.home),
+        icon = TaskOasisIcon.of(TaskOasisIcons.home),
         screenName = "Empty item"
     ),
     Habits(
-        icon = TaskOasisIcon.DrawableResourceIcon(TaskOasisIcons.habit),
+        icon = TaskOasisIcon.of(TaskOasisIcons.habit),
         screenName = "Habits"
     ),
     Profile(
-        icon = TaskOasisIcon.ImageVectorIcon(TaskOasisIcons.avatar),
+        icon = TaskOasisIcon.of(TaskOasisIcons.avatar),
         screenName = "Profile"
     )
 }
