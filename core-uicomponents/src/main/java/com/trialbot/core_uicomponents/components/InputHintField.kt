@@ -32,6 +32,7 @@ import com.trialbot.core_designsystem.ui.theme.inputStrokeColor
 @Composable
 fun InputHintField(
     modifier: Modifier = Modifier,
+    textFieldSizes: TextFieldSizes = TextFieldSizes(),
     value: String,
     hint: String,
     onValueChanged: (String) -> Unit,
@@ -41,6 +42,7 @@ fun InputHintField(
     isError: Boolean = error.isNotEmpty(),
     passwordVisibility: Boolean? = null,
     isLabelAboveVisible: Boolean = true,
+    singleLine: Boolean = true,
     trailingIcon: @Composable (() -> Unit)? = {
         if (isError)
             Icon(
@@ -50,20 +52,20 @@ fun InputHintField(
             )
     },
 ) {
-    var label: (@Composable () -> Unit)? = null
-    if (isLabelAboveVisible) {
-        label = {
-            Text(
-                text = hint
-            )
-        }
+    val label: @Composable () -> Unit = {
+        Text(
+            text = hint
+        )
     }
+
 
     OutlinedTextFieldValidation(
         modifier = modifier,
+        textFieldSizes = textFieldSizes,
         value = value,
         onValueChange = onValueChanged,
-        label = label,
+        label = if (isLabelAboveVisible) label else null,
+        placeholder = label,
         colors = TextFieldDefaults.textFieldColors(
             textColor = MaterialTheme.colors.onSurface,
             unfocusedLabelColor = MaterialTheme.colors.inputStrokeColor,
@@ -75,7 +77,7 @@ fun InputHintField(
         error = error,
         isError = isError,
         textStyle = MaterialTheme.typography.body1,
-        singleLine = true,
+        singleLine = singleLine,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         visualTransformation = if (passwordVisibility == null || passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),

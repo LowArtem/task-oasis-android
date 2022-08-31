@@ -15,16 +15,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.trialbot.core_designsystem.ui.TaskOasisIcons
 import com.trialbot.core_designsystem.ui.theme.TaskOasisTheme
 import com.trialbot.core_designsystem.ui.theme.disabledColor
 
+data class TextFieldSizes(
+    val minHeight: Dp? = null,
+    val maxHeight: Dp? = null
+)
+
+@Suppress("SENSELESS_COMPARISON")
 @Composable
 fun OutlinedTextFieldValidation(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    textFieldSizes: TextFieldSizes = TextFieldSizes(),
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -60,8 +68,24 @@ fun OutlinedTextFieldValidation(
             readOnly = readOnly,
             value = value,
             onValueChange = onValueChange,
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = if (textFieldSizes.maxHeight != null) {
+                Modifier
+                    .sizeIn(maxHeight = textFieldSizes.maxHeight)
+                    .fillMaxWidth()
+            } else if (textFieldSizes.minHeight != null) {
+                Modifier
+                    .sizeIn(minHeight = textFieldSizes.minHeight)
+                    .fillMaxWidth()
+            } else if (textFieldSizes.maxHeight != null && textFieldSizes.minHeight != null) {
+                Modifier
+                    .sizeIn(
+                        minHeight = textFieldSizes.minHeight,
+                        maxHeight = textFieldSizes.maxHeight
+                    )
+                    .fillMaxWidth()
+            } else {
+                Modifier.fillMaxWidth()
+            },
             singleLine = singleLine,
             textStyle = textStyle,
             label = label,
