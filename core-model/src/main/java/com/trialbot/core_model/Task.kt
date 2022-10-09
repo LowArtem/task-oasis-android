@@ -31,3 +31,15 @@ data class TaskShortDto(
     val completionDate: Instant?,
     val id: Int
 )
+
+fun Subtask.toTaskShortDto() = TaskShortDto(
+    name = this.text,
+    deadline = null,
+    status = this.status,
+    difficulty = Difficulty.NORMAL,
+    priority = Priority.LOW,
+    hasNotification = false,
+    hasRepeat = false,
+    completionDate = null,
+    id = this.id ?: -1
+)
