@@ -199,6 +199,7 @@ fun TaskGroups(
             }
         }
 
+        // TODO: может некорректно работать, лучше переписать
         if (emptyGroupCount == groups.size && placeholderContent != null) {
             item {
                 placeholderContent()

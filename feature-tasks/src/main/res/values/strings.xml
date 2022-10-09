@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_task_title">Add a task</string>
+    <string name="edit_task_title">Edit a task</string>
+    <string name="enter_title_hint">Enter a title</string>
+    <string name="enter_description_hint">Enter a description</string>
+    <string name="task_deadline_title">Task deadline</string>
+    <string name="notification_title">Notification</string>
+    <string name="repeat_title">Repeat</string>
+    <string name="difficulty_priority_title">Difficulty and priority</string>
+    <string name="subtasks_group_title">Subtasks</string>
+    <string name="none_title">None</string>
+    <string name="in_time_title">In time</string>
+    <string name="five_minutes_before_title">Five minutes before</string>
+    <string name="one_hour_before_title">One hour before</string>
+    <string name="in_day_title">In day</string>
+    <string name="in_day_before_title">In day before</string>
+    <string name="in_week_before_title">In week before</string>
+    <string name="repeat_weekly">Weekly</string>
+    <string name="repeat_monthly">Monthly</string>
+    <string name="repeat_yearly">Yearly</string>
+    <string name="diff_easy">Easy</string>
+    <string name="diff_normal">Normal</string>
+    <string name="diff_hard">Hard</string>
+    <string name="priority_low">Low</string>
+    <string name="priority_normal">Normal</string>
+    <string name="priority_important">Important</string>
+</resources>
