@@ -86,7 +86,9 @@ fun ListTabView(
             TaskGroups(
                 modifier = Modifier.padding(15.dp),
                 groups = taskGroupData,
-                onSingleTaskClick = { viewModel.onEvent(TaskEvent.OpenedTask(it)) },
+                onSingleTaskClick = { taskId, _ ->
+                    viewModel.onEvent(TaskEvent.OpenedTask(taskId))
+                },
                 onSingleTaskCheckedChanged = { check, _, taskId ->
                     viewModel.onEvent(TaskEvent.ChangedTaskStatus(taskId, check))
                 },
@@ -94,6 +96,12 @@ fun ListTabView(
                     viewModel.onEvent(TaskEvent.DeletedTask(it))
                 },
                 onErrorOccurred = { viewModel.onEvent(TaskEvent.OccurredError(it)) },
+                onItemEditedCallback = { groupIndex: Int, taskId: Int, newText: String ->
+
+                },
+                onNewItemAddedCallback = { groupIndex: Int, text: String ->
+
+                },
                 placeholderContent = {
                     Column(
                         modifier = Modifier

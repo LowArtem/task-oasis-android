@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.trialbot.core_model.TaskShortDto
 import com.trialbot.core_utils.Result
+import com.trialbot.feature_tasks.domain.use_case.AddEditTaskUseCase
 import com.trialbot.feature_tasks.domain.use_case.GetTasksUseCase
+import com.trialbot.feature_tasks.presentation.events.TaskAddEditEvent
 import com.trialbot.feature_tasks.presentation.events.TaskEvent
 import com.trialbot.feature_tasks.presentation.events.UiEvent
 import com.trialbot.feature_tasks.presentation.state.ListTabUiState
@@ -13,7 +15,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class ListTabViewModel(
-    private val getTasksUseCase: GetTasksUseCase
+    private val getTasksUseCase: GetTasksUseCase,
+    private val addEditTaskUseCase: AddEditTaskUseCase
 ) : ViewModel() {
 
     private val _completedTasks: Flow<Result<List<TaskShortDto>>> = getTasksUseCase.getCompletedTasks()
